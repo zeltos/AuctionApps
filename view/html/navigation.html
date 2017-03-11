@@ -1,0 +1,45 @@
+<div ng-controller="navigationController">
+  <nav class="grey darken-4">
+    <div class="nav-wrapper container " style="padding:0;">
+      <a href="{{ getBaseUrl() }}" class="brand-logo"><img src="media/frontend/images/bo_logo.png" alt=""></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a ng-click="openLoginDialog()" class="waves-effect waves-light btn grey lighten-5 text-black"><i class="material-icons left">account_circle</i>Sign in</a></li>
+        <li><a class="waves-effect waves-light btn grey darken-3">Register</a></li>
+        <li><a class="waves-effect waves-light btn grey darken-3" style="margin-left:10px;"><i class="material-icons left">shopping_basket</i> Back to Shop</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div id="modal-login" class="modal small">
+    <div class="modal-content">
+      <h4 class="center-align">Sign in to Auction</h4>
+      <p class="single-p center-align">If you already have an account please fill this form.</p>
+      <span class="sptr"></span>
+      <form class="" action="index.html" method="post">
+        <div class="cover">
+          <div class="row">
+            <div class="input-field col s12">
+              <i class="material-icons prefix">account_circle</i>
+              <input id="icon_prefix" type="email" class="validate" required="">
+              <label for="icon_prefix">Email Adress</label>
+            </div>
+            <div class="input-field col s12">
+              <i class="material-icons prefix">vpn_key</i>
+              <input id="icon_prefix" type="text" class="validate" required="">
+              <label for="icon_prefix">Password</label>
+            </div>
+          </div>
+        </div>
+        <p class="single-p center-align">didn't have an account yet? <a href="#">Create new account</a></p>
+        <div class="cover right-align" style="padding:20px 0;">
+          <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">vpn_key</i>Sign In</button>
+          <a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  jQuery(document).ready(function($) {
+    $('#modal-login').modal();
+  });
+</script>

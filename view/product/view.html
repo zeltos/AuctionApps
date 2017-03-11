@@ -1,0 +1,129 @@
+<div class="container auction-detail">
+  <div class="title-auction">
+    <span class="logo-brand"><img src="<?php echo $frontend->getMediaUrl() ?>catalog/logo-brand/YEEZY.jpg" alt=""></span>
+    <h4>Adidas Yeezy Boost 350 V2</h4>
+  </div>
+  <div class="row">
+    <div class="col s5">
+      <div class="media-auction cover">
+        <div class="media-auction-preview">
+          <img src="<?php echo $frontend->getMediaUrl() ?>catalog/nmd.jpg" alt="">
+        </div>
+        <div class="media-auction-list cover">
+           <div class="owl-carousel owl-theme">
+              <div class="item"><img class="media-list-img" src="<?php echo $frontend->getMediaUrl() ?>catalog/nmd.jpg" alt=""></div>
+              <div class="item"><img class="media-list-img" src="<?php echo $frontend->getMediaUrl() ?>catalog/IMG_5068.jpg" alt=""></div>
+              <div class="item"><img class="media-list-img" src="<?php echo $frontend->getMediaUrl() ?>catalog/nmd.jpg" alt=""></div>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $('.media-list-img').click(function(event) {
+          var src = $(this).attr('src');
+          $('.media-auction-preview img').attr('src', src);
+        });
+      });
+      $('.media-auction-list .owl-carousel').owlCarousel({
+        center: true,
+        items:2,
+        loop:true,
+        margin:10,
+        responsive:{
+            600:{
+                items:4
+            }
+        }
+      });
+      </script>
+      <div class="log-dominated">
+        <div class="chip red lighten-1 text-white">
+           <i class=" left material-icons">error_outline</i>
+          <b>Someone</b> just dominated this auction, <u>lets make your bid!</u>
+        </div>
+        <div class="chip light-green accent-2">
+          <i class=" left material-icons">done</i>
+          <b>Lets Enjoy!</b> You just dominated this auction
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <div class="detail-auction-wrapper cover">
+          <div class="auction-countdown cover">
+            <div id="product1-coundown" class="countdown-wrapper"></div>
+            <script type="text/javascript">
+             $("#product1-coundown")
+             .countdown("2017/03/25", function(event) {
+               var $this = $(this).html(event.strftime(''
+                  + "<div class='timer-wrapper'><span>%w</span> weeks  </div>"
+                  + "<div class='timer-wrapper'><span>%d</span> days  </div>"
+                  + "<div class='timer-wrapper'><span>%H</span> hour  </div>"
+                  + "<div class='timer-wrapper'><span>%M</span> min  </div>"
+                  + "<div class='timer-wrapper'><span>%S</span> sec </div>"));
+             });
+           </script>
+          </div>
+          <div class="auction-desc cover">
+            <p><b>Lorem ipsum dolor sit amet, consectetur</b> adipiscing elit. Si longus, levis dictata sunt. Quod quidem iam fit etiam in Academia. Portenta haec esse dicit, neque ea ratione ullo modo posse vivi; Sint ista Graecorum; Cur tantas regiones barbarorum pedibus obiit, tot maria transmisit? Si quicquam extra virtutem habeatur in bonis. Tu autem, si tibi illa probabantur, cur non propriis verbis ea tenebas? Duo Reges: constructio interrete. Diodorus, eius auditor, adiungit ad honestatem vacuitatem doloris. Sed quanta sit alias, nunc tantum possitne esse tanta. Quis animo aequo videt eum, quem inpure ac flagitiose putet vivere? Sed fac ista esse non inportuna;</p>
+            <p>Quae fere omnia appellantur uno ingenii nomine, easque virtutes qui habent, <b>ingeniosi vocantur. Indicant pueri</b>, in quibus ut in speculis natura cernitur. Illa videamus, quae a te de amicitia dicta sunt. Quae cum essent dicta, discessimus.</p>
+            <p>Quid ad utilitatem tantae pecuniae? Sed mehercule pergrata mihi oratio tua. Quod ea non occurrentia fingunt, vincunt Aristonem; </p>
+            <div class="load-more-desc"></div>
+          </div>
+          <div class="cover trigger-load-desc"><span>...</span></div>
+          <script type="text/javascript">
+            $('.trigger-load-desc').click(function(event) {
+              $('.auction-desc').addClass('opened');
+              $('.load-more-desc, .trigger-load-desc').css('display', 'none');
+            });
+          </script>
+          <div class="auction-current-bid cover">
+            <p class="single-p">Current Bid : <b>IDR 900.000</b></p>
+          </div>
+          <span class="sptr"></span>
+          <div class="form-bid cover">
+            <form class="" action="index.html" method="post">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="first_name2" type="number" class="validate" required="">
+                <label class="active" for="first_name2">Let's deal Your bid</label>
+              </div>
+              <div class="input-field col s6">
+                <button class="waves-effect waves-light btn-large"><i class="material-icons left">pan_tool</i>Submit Your Bid!</button>
+              </div>
+            </div>
+            <p>
+              <input type="checkbox" class="filled-in validate" id='agreement-check'  required/>
+              <label for="agreement-check" id="trigger-agreement" class="validate">Before you submit bid, you must agree this term & condition</label>
+              <script type="text/javascript">
+                jQuery(document).ready(function($) {
+                  $('#modal-agreement').modal();
+                  $("#trigger-agreement").click(function(event) {
+                    if (!$('#agreement-check').is(':checked')) {
+                       $('#modal-agreement').modal('open');
+                     }
+                  });
+                  $('#cancel-agreement').click(function(event) {
+                    $('#agreement-check').prop('checked', false);
+                  });
+                });
+              </script>
+            </p>
+            <p class="note-p"><i>*max bid at once biding is : IDR 100.000 from the current bid</i></p>
+            <div id="modal-agreement" class="modal modal-fixed-footer">
+              <div class="modal-content">
+                <h4>Term & Condition</h4>
+                <p><b>Lorem ipsum dolor sit amet, consectetur</b> adipiscing elit. Si longus, levis dictata sunt. Quod quidem iam fit etiam in Academia. Portenta haec esse dicit, neque ea ratione ullo modo posse vivi; Sint ista Graecorum; Cur tantas regiones barbarorum pedibus obiit, tot maria transmisit? Si quicquam extra virtutem habeatur in bonis. Tu autem, si tibi illa probabantur, cur non propriis verbis ea tenebas? Duo Reges: constructio interrete. Diodorus, eius auditor, adiungit ad honestatem vacuitatem doloris. Sed quanta sit alias, nunc tantum possitne esse tanta. Quis animo aequo videt eum, quem inpure ac flagitiose putet vivere? Sed fac ista esse non inportuna;</p>
+                <p>Quae fere omnia appellantur uno ingenii nomine, easque virtutes qui habent, <b>ingeniosi vocantur. Indicant pueri</b>, in quibus ut in speculis natura cernitur. Illa videamus, quae a te de amicitia dicta sunt. Quae cum essent dicta, discessimus.</p>
+                <p>Quid ad utilitatem tantae pecuniae? Sed mehercule pergrata mihi oratio tua. Quod ea non occurrentia fingunt, vincunt Aristonem; </p>
+              </div>
+              <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" id="cancel-agreement">Cancel</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+              </div>
+            </div>
+          </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

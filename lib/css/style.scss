@@ -1,0 +1,361 @@
+$white : #FFF;
+$black : #181818;
+
+@mixin keyframes($animation-name) {
+    @-webkit-keyframes #{$animation-name} {
+        @content;
+    }
+    @-moz-keyframes #{$animation-name} {
+        @content;
+    }
+    @-ms-keyframes #{$animation-name} {
+        @content;
+    }
+    @-o-keyframes #{$animation-name} {
+        @content;
+    }
+    @keyframes #{$animation-name} {
+        @content;
+    }
+}
+
+@mixin animation($str) {
+  -webkit-animation: #{$str};
+  -moz-animation: #{$str};
+  -ms-animation: #{$str};
+  -o-animation: #{$str};
+  animation: #{$str};
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@include keyframes(blink) {
+  0% { opacity: 1; }
+  90% { opacity: 0; }
+}
+
+.background-white-gradient-transparent {
+  background: rgba(254,254,254,0);
+  background: -moz-linear-gradient(top, rgba(254,254,254,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 98%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(254,254,254,0)), color-stop(80%, rgba(255,255,255,1)), color-stop(98%, rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(top, rgba(254,254,254,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 98%);
+  background: -o-linear-gradient(top, rgba(254,254,254,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 98%);
+  background: -ms-linear-gradient(top, rgba(254,254,254,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 98%);
+  background: linear-gradient(to bottom, rgba(254,254,254,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 98%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#ffffff', GradientType=0 );
+}
+.text-white {
+  color: $white !important;
+}
+.text-black {
+  color: $black !important;
+}
+.modal {
+  &.small {
+    width: 35%;
+  }
+}
+
+.single-p {
+  margin: 0;
+}
+i.right {
+  margin-left: 5px;
+}
+i.left {
+  margin-right: 5px;
+}
+.sptr {
+  @extend .cover;
+  border-bottom: 1px solid #e0e0e0;
+  height: 1px;
+  margin: 15px 0;
+}
+.note-p {
+  font-size: 11px;
+  margin: 5px 0;
+}
+.main-content {
+  min-height: 78vh;
+  @extend .cover;
+}
+.brand-logo {
+	img {
+		height:60px;
+	}
+}
+p {
+  margin-top: 0;
+}
+
+/*-----------*/
+
+// banner Style
+.banner-wrapper {
+	width:100%;
+	float:left;
+	position:relative;
+	.next-button {
+		position:absolute;
+		z-index: 99;
+		right: 0;
+		width:8.6%;
+		height:100%;
+		background:rgba(0,0,0,0.2);
+	}
+	.prev-button {
+		position:absolute;
+		z-index: 99;
+		left: 0;
+		width:8.6%;
+		height:100%;
+		background:rgba(0,0,0,0.2);
+	}
+}
+
+#main-banner-slider {
+	position:relative;
+	z-index: 999;
+	.owl-item {
+		width:90%;
+		opacity: .5;
+		a {
+			display:block;
+		}
+		&.center {
+			opacity:1;
+			position:relative;
+			z-index: 99;
+			box-shadow: 0px 0px 15px #2d2d2d;
+		}
+	}
+	.owl-dots {
+		width:100%;
+		position: absolute;
+		bottom: 0;
+	}
+}
+
+#thumbnail-slider {
+	.owl-item {
+		opacity: .5;
+	 &.current {
+		 opacity: 1;
+	 }
+	}
+}
+.countdown-wrapper {
+	position: relative;
+	z-index: 99;
+	top:55%;
+	text-align:center;
+	width: 100%;
+	padding-bottom: 15px;
+	.timer-wrapper {
+		display: inline-block;
+		// width: 30px;
+		// height: 30px;
+		text-align: center;
+		background: rgba(0,0,0,0.6);
+		padding: 0px 5px;
+		// padding-top: 25px;
+		margin: 1px;
+		border-radius: 5px;
+		color: #FFF;
+		font-size: 11px;
+	}
+}
+.current-bid {
+	color:#FFF;
+	padding:5px 10px;
+	border-radius:3px;
+}
+.card.catalog-card {
+  height: 411px;
+  overflow: hidden;
+	.card-image {
+		height: 175px;
+		overflow: hidden;
+		.card-status {
+			position: absolute;
+			top:5px;
+			left: 5px;
+			padding: 5px 10px;
+		  z-index: 99;
+			color: $white;
+      border-radius: 4px;
+      &.live { background: #7cb342; }
+      &.cooming { background: #424242;  }
+      &.closed { background: #e53935 ;  }
+			.status-live {
+				width: 10px;
+				height: 10px;
+				vertical-align: middle;
+				border-radius: 50%;
+				background: $white;
+				display: inline-block;
+				 @include animation('blink 1s infinite');
+			}
+		}
+		.card-title {
+			background:rgba(0,0,0,0.5);
+			padding:15px;
+			font-size: 16px;
+		}
+	}
+	.card-content {
+		.small-desc {
+			margin-top: 15px;
+			font-size: 12px;
+			color: #999;
+		}
+	}
+}
+
+nav ul a.btn, nav ul a.btn-large, nav ul a.btn-large, nav ul a.btn-flat, nav ul a.btn-floating {
+	margin-left: 3px;
+	margin-right: 3px;
+}
+.btn, .btn-large, .btn-flat {
+	text-transform: inherit;
+	padding:0 15px;
+}
+
+.cover {
+	width: 100%;
+	float:left;
+	position:relative;
+}
+
+.how-wrapper {
+	background:#eee;
+	min-height: 80px;
+	margin-bottom: 20px;
+	.how-item {
+		text-align:center;
+		.how-title {
+			font-size:16px;
+		}
+	}
+}
+
+// Footer
+.copyright-bg {
+  @extend .cover;
+  margin-top: 20px;
+  background: #2d2d2d;
+  color: $white;
+  .row {
+    margin-bottom: 0;
+  }
+}
+
+// Auction Detail Style
+.auction-detail {
+  .log-dominated {
+    .chip {
+      font-size: 10px;
+      width: 100%;
+      i {
+        padding-top: 4px;
+      }
+    }
+  }
+  .auction-current-bid {
+  margin-top: 20px;
+  font-size: 18px;
+  }
+  .auction-desc {
+    min-height: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: relative;
+    @include transition(all 1s ease);
+    &.opened {
+      height: auto;
+      max-height: 700px;
+    }
+    .load-more-desc {
+      height: 50px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      @extend .background-white-gradient-transparent;
+    }
+  }
+  .trigger-load-desc {
+    line-height: 9px;
+    font-size: 12px;
+    cursor: pointer;
+    color:#1e88e5;
+    span {
+        font-size: 16px;
+        font-weight: 700;
+        display: inline-block;
+        padding: 3px 8px;
+        border: 1px solid #eee;
+        border-radius: 2px;
+        &:hover {
+          background: #eee;
+        }
+    }
+  }
+  .auction-countdown {
+    .countdown-wrapper {
+      text-align: left;
+      .timer-wrapper {
+        padding: 10px 20px;
+        font-size: 14px;
+        span {
+          font-size: 25px;
+          font-weight: 700;
+          display: block;
+          padding-top: 5px;
+        }
+      }
+    }
+  }
+  .title-auction {
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    .logo-brand {
+      display: inline-block;
+      height: 50px;
+      img {
+          height: 50px;
+          vertical-align: middle;
+      }
+    }
+    h4 {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+    }
+  }
+  .media-auction {
+    .media-auction-preview {
+      img {
+        width: 100%;
+      }
+    }
+    .media-auction-list {
+      margin-top: 15px;
+      img {
+        opacity: .8;
+        cursor: pointer;
+        @include transition(opacity .3s ease);
+        &:hover {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

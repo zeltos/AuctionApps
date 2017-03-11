@@ -1,0 +1,35 @@
+[
+  {
+    "auction-id" : "1",
+    "status" : "live",
+    "auction_name" : "Adidas Yeezy Boost 350 v2",
+    "auction_thumbnail" : "nmd.jpg",
+    "auction_start_bidding" : 300000,
+    "auction_current_bidding" : 900000,
+    "auction_short_description" : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim",
+    "auction_start_date" : "2017/03/11",
+    "auction_end_date" : "2017/03/25"
+  },
+  {
+    "auction_id" : "2",
+    "status" : "cooming",
+    "auction_name" : "Adidas NMD 220 v2",
+    "auction_thumbnail" : "nmd.jpg",
+    "auction_start_bidding" : 300000,
+    "auction_current_bidding" : 900000,
+    "auction_short_description" : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim",
+    "auction_start_date" : "2017/03/11",
+    "auction_end_date" : "2017/03/25"
+  },
+  {
+    "auction_id" : "3",
+    "status" : "closed",
+    "auction_name" : "Nike AirWalk V_series",
+    "auction_thumbnail" : "nmd.jpg",
+    "auction_start_bidding" : 300000,
+    "auction_current_bidding" : 900000,
+    "auction_short_description" : "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim",
+    "auction_start_date" : "2017/03/11",
+    "auction_end_date" : "2017/03/11"
+  }
+]
