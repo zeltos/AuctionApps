@@ -1,4 +1,4 @@
-AuctionApp.controller('authController', ['$scope', '$http' , function($scope, $http){
+AuctionApp.controller('authController', ['$scope', '$rootScope', '$http' , function($scope, $rootScope, $http){
   $scope.userData = {};
   $scope.token = {};
   var urlServer = $scope.getBaseUrl() + '/backend/api/example/';

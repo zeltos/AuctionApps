@@ -10,17 +10,17 @@
 	<link rel="stylesheet" href="lib/css/jquery.countdown.css">
 	<link rel="stylesheet" href="lib/js/angular/angular-loading-bar/loading-bar.css">
 	<link rel="stylesheet" href="lib/css/style.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="lib/css/materialize-icon.css">
 
 	<script type="text/javascript" src="lib/js/jquery.min.js"></script>
 	<script type="text/javascript" src="lib/js/materialize.min.js"></script>
 	<script type="text/javascript" src="lib/js/owl.carousel.min.js"></script>
 	<script type="text/javascript" src="lib/js/jquery.countdown.min.js"></script>
 
-	<script src="//code.angularjs.org/snapshot/angular.min.js"></script>
+	<script type="text/javascript" src="lib/js/angular/angular.min.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-route.min.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-locale_id-id.js"></script>
-	<script src="//code.angularjs.org/snapshot/angular-sanitize.js"></script>
+	<script type="text/javascript" src="lib/js/angular/angular-sanitize.min.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-loading-bar/loading-bar.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-animate.min.js"></script>
 
@@ -31,14 +31,15 @@
 	<script type="text/javascript" src="app/auctionDetailController.js"></script>
 	<script type="text/javascript" src="app/authController.js"></script>
 
-	<script type="text/javascript" src="app/bidingService.js"></script>
+	<script type="text/javascript" src="app/service/bidingService.js"></script>
+	<script type="text/javascript" src="app/service/auctionDataService.js"></script>
 
 	<script type="text/javascript" src="lib/js/script.js"></script>
 
 </head>
 <body ng-controller="appController">
 	<ng-include src="'view/html/navigation.html'"></ng-include>
-	<div id="loading-bar-container"></div>
+	<div id="loading-bar"></div>
 	<style media="screen">
 	#loading-bar .bar {
 	position: relative;

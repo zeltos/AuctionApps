@@ -1,11 +1,9 @@
 var AuctionApp = angular.module('auctionApp', ['ngRoute', 'ngSanitize','angular-loading-bar']);
 
-AuctionApp.config(function(cfpLoadingBarProvider) {
-  cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
-  cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
-  cfpLoadingBarProvider.includeSpinner = true;
-  cfpLoadingBarProvider.latencyThreshold = 3500;
-});
+AuctionApp.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.parentSelector = '#loading-bar';
+    cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+  }]);
 
 // Routing Auction frontend
 AuctionApp.config(function($routeProvider) {
@@ -20,19 +18,19 @@ AuctionApp.config(function($routeProvider) {
         templateUrl : "view/page/auction.html",
         controller : "auctionDetailController"
     })
-    .when("/blue", {
-        templateUrl : "blue.htm"
+    .otherwise({
+        templateUrl: "view/page/404.html"
     });
 });
 
-AuctionApp.controller('appController', ['$scope' , function($scope){
+AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope, $rootScope){
   // Get Base Url
-  $scope.getBaseUrl = function() {
+  $rootScope.getBaseUrl = function() {
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
     return baseUrl;
   }
-  $scope.getMediaUrl = function() {
+  $rootScope.getMediaUrl = function() {
     return $scope.getBaseUrl() + '/media/';
   }
 }]);

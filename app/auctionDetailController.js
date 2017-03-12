@@ -1,19 +1,15 @@
 AuctionApp.controller('auctionDetailController',
-['$scope', '$http', '$routeParams','bidingService',
-function($scope, $http, $routeParams, bidingService) {
+['$scope', '$http', '$routeParams','bidingService', 'auctionDataService',
+function($scope, $http, $routeParams, bidingService, auctionDataService) {
 
-  $scope.auctionData = {};
-  $scope.dominated = true;
-
-  var urlServer = $scope.getBaseUrl() + '/backend/api/example/';
-  $http.get( urlServer + 'detail.json').then(function(response) {
-    $scope.auctionData = response.data.auction_data;
-    $scope.dominated = response.data.dominated;
-  });
+  auctionDataService.getDetailAuction(function(data) {
+    $scope.auctionData = data.auction_data;
+    $scope.dominated  = data.dominated;
+  })
 
   $scope.submitBidTrigger = function() {
     var responseServiceBid = bidingService.submitBid();
-    console.log(responseServiceBid);
+    alert(responseServiceBid);
   }
 
 }]);
