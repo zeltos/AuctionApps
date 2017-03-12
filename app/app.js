@@ -1,7 +1,10 @@
-var AuctionApp = angular.module('auctionApp', ['ngRoute']);
+var AuctionApp = angular.module('auctionApp', ['ngRoute', 'ngSanitize','angular-loading-bar']);
 
-AuctionApp.config(function() {
-	// Config Auction
+AuctionApp.config(function(cfpLoadingBarProvider) {
+  cfpLoadingBarProvider.parentSelector = '#loading-bar-container';
+  cfpLoadingBarProvider.spinnerTemplate = '<div><span class="fa fa-spinner">Custom Loading Message...</div>';
+  cfpLoadingBarProvider.includeSpinner = true;
+  cfpLoadingBarProvider.latencyThreshold = 3500;
 });
 
 // Routing Auction frontend
@@ -13,8 +16,9 @@ AuctionApp.config(function($routeProvider) {
     .when("/auction-list/", {
         templateUrl : "view/page/auction-list.html"
     })
-    .when("/green", {
-        templateUrl : "green.htm"
+    .when("/auction/:uniqueKey", {
+        templateUrl : "view/page/auction.html",
+        controller : "auctionDetailController"
     })
     .when("/blue", {
         templateUrl : "blue.htm"

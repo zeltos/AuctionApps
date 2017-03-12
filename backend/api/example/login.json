@@ -1,0 +1,18 @@
+{
+  "response" : [
+     {
+       "status" : "success",
+       "message" : "Successfuly Login To apps!"
+     }
+  ],
+  "token" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  "user_data" : [
+    {
+      "user_id" : 22,
+      "user_name" : "Medianto Jaelani",
+      "user_email" : "medianto.jaelani@gmail.com",
+      "user_birtdate" : " Mei 22, 1994",
+      "user_phone" : "08974910180"
+    }
+  ]
+}

@@ -2,18 +2,13 @@
 	<div class="cover">
 	  <h4 class="left">All Auctions</h4>
     <div class="input-field right">
+		<!-- Search Binding the auctionItems  -->
      <select class="browser-default"
 		  ng-model="search"
 		 	ng-options="aItem as aItem.status for aItem in auctionItems">
        <option value="" >All Auction Status</option>
      </select>
-     <!-- <label>Filter Auction</label> -->
    </div>
-   <script type="text/javascript">
-    $(document).ready(function() {
-
-    });
-   </script>
 	</div>
 	<div class="row">
 		<div class="col s4" ng-repeat="aItem in auctionItems | filter: { status: search.status }: true ">
@@ -32,7 +27,7 @@
 							 <p class="small-desc">{{ aItem.auction_short_description }}</p>
 	            </div>
 	            <div class="card-action" align="center" style="padding:15px 0;">
-	              <a href="#" class="btn" >View Detail!</a>
+	              <a href="#!/auction/{{  aItem.auction_unique_key }}" class="btn" >View Detail!</a>
 	            </div>
 	          </div>
 		</div>
