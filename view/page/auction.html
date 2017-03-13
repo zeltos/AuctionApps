@@ -87,7 +87,7 @@
             <!-- <form class="" action="index.html" method="post"> -->
             <div class="row">
               <div class="input-field col s6">
-                <input id="first_name2" type="number" class="validate" required="">
+                <input id="first_name2" type="number" class="validate" required="" ng-model="formBidData.bid_value" value="formBidData.bid_value|currency">
                 <label class="active" for="first_name2">Let's deal Your bid</label>
               </div>
               <div class="input-field col s6">
@@ -95,7 +95,7 @@
               </div>
             </div>
             <p>
-              <input type="checkbox" class="filled-in validate" id='agreement-check'  required/>
+              <input type="checkbox" class="filled-in validate" id='agreement-check' ng-model="formBidData.agreement_check"  required/>
               <label for="agreement-check" id="trigger-agreement" class="validate">Before you submit bid, you must agree this term & condition</label>
               <script type="text/javascript">
                 jQuery(document).ready(function($) {
@@ -111,7 +111,8 @@
                 });
               </script>
             </p>
-            <p class="note-p"><i>*max bid at once biding is : IDR 100.000 from the current bid</i></p>
+            <p class="note-p"><i>*max bid at once biding is : IDR {{ auctionData.auction_max_perbid }} from the current bid</i></p>
+            {{ formBidData }}
             <div id="modal-agreement" class="modal modal-fixed-footer">
               <div class="modal-content">
                 <h4>Term & Condition</h4>
@@ -120,7 +121,7 @@
                 <p>Quid ad utilitatem tantae pecuniae? Sed mehercule pergrata mihi oratio tua. Quod ea non occurrentia fingunt, vincunt Aristonem; </p>
               </div>
               <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green btn-flat" id="cancel-agreement">Cancel</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat" id="cancel-agreement" ng-click="cancelAgreement()">Cancel</a>
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
               </div>
             </div>

@@ -1,11 +1,10 @@
-AuctionApp.service('bidingService', function() {
+AuctionApp.service('bidingService', function($http, $rootScope) {
 
     this.service = true;
-    this.submitBid = function () {
-      var dataAuth = JSON.parse(localStorage.getItem("auth"));
-      if (!dataAuth) {
-         return 'you need to login to submit a bid!';
-      }
-      return "successfuly submit a bid!";
+    var urlServer = $rootScope.getBaseUrl() + '/backend/api/example/';
+    this.submitBid = function (callback, data) {      
+      $http.post( urlServer + 'detail.json', data).then(function(response) {
+        callback("successfuly submit a bid!");
+      });
     }
 });
