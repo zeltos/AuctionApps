@@ -12,6 +12,8 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   }
 
   $scope.formBidData = {};
+  $scope.bidError = false;
+  $scope.bidSuccess = false;
   $scope.submitBidTrigger = function() {
     var dataAuth = JSON.parse(localStorage.getItem("auth"));
     if (!dataAuth) {
@@ -33,7 +35,12 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
     }
     console.log($scope.formBidData);
     bidingService.submitBid(function(data) {
-      alert(data);
+      console.log(data);
+      var status = data.result.status;
+      if (status == 'success') {
+        $scope.bidSuccess = true;
+        $scope.bidMessage = data.result.message;
+      }
       $scope.formBidData = {};
     }, $scope.formBidData);
   }

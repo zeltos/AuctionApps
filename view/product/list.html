@@ -1,17 +1,36 @@
 <div class="container" ng-controller="listAuctionController">
 	<div class="cover">
 	  <h4 class="left">All Auctions</h4>
-    <div class="input-field right">
+    <!-- <div class="input-field right"> -->
 		<!-- Search Binding the auctionItems  -->
-     <select class="browser-default"
+     <!-- <select class="browser-default"
 		  ng-model="search"
 		 	ng-options="aItem as aItem.status for aItem in auctionItems">
        <option value="" >All Auction Status</option>
      </select>
-   </div>
+   </div> -->
+	 <div class="input-field right">
+		<select class="material-select browser-default">
+			<option value="" disabled>Choose your option</option>
+			<option value="" ng-selected="sortBy == ''">All</option>
+			<option value="live" ng-selected="sortBy == 'live'">Live</option>
+			<option value="cooming" ng-selected="sortBy == 'cooming'">Cooming Soon</option>
+			<option value="closed" ng-selected="sortBy == 'closed'">Closed</option>
+		</select>
+		<!-- <label>Filter Auction</label> -->
+	</div>
+	<script type="text/javascript">
+	 $(document).ready(function() {
+		//  $('.material-select').material_select();
+		 $('.material-select').change(function(event) {
+			 var selectValue = $('.material-select option:selected').val();
+			 window.location.href='#!/auction-list/' + selectValue;
+		 });
+	 });
+	</script>
 	</div>
 	<div class="row">
-		<div class="col s6 l4" ng-repeat="aItem in auctionItems | filter: { status: search.status }: true ">
+		<div class="col s6 l4" ng-repeat="aItem in auctionItems">
 			 <div class="card catalog-card {{ aItem.status }}">
 	            <div class="card-image">
 								<div class="card-status {{ aItem.status }}">

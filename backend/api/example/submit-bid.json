@@ -1,0 +1,9 @@
+{
+  "result" : {
+    "status" : "success",
+    "message" : "successfuly submit a bid!"
+  },
+  "callbackData" : {
+    "your_bid" : 100000
+  }
+}

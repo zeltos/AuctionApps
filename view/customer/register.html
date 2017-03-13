@@ -1,0 +1,41 @@
+<div class="container" ng-controller="authController">
+  <h3>Create New Account</h3>
+  <span class="sptr"></span>
+  <div class="row">
+    <form name="userForm" ng-submit="submitRegister(userForm.$valid)">
+      <div class="input-field col s12 l12">
+        <i class="material-icons prefix">account_circle</i>
+        <input id="first_name" type="text" class="validate" required ng-model="registerData.name">
+        <label for="first_name" class="active">First Name</label>
+      </div>
+      <div class="input-field col s12 l12">
+        <i class="material-icons prefix">vpn_key</i>
+        <input id="password" type="password" class="validate" required ng-model="registerData.password">
+        <label for="password" class="active">Password</label>
+      </div>
+      <div class="input-field col s12 l12">
+        <i class="material-icons prefix">phone</i>
+        <input id="phone" type="text" class="validate" required ng-model="registerData.phone">
+        <label for="phone" class="active">Phone Number</label>
+      </div>
+      <div class="input-field col s12 l12">
+        <i class="material-icons prefix">email</i>
+        <input id="email" type="email" class="validate" required ng-model="registerData.email">
+        <label for="email" class="active">Email Adress</label>
+      </div>
+      <div class="input-field col s12 l12">
+        <input id="birth" type="date" class="birth-input" required ng-model="registerData.birth_date">
+        <label for="birth" class="active">Birth Date</label>
+        <script type="text/javascript">
+        jQuery('.birth-input').pickadate({
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 75 // Creates a dropdown of 15 years to control year
+        });
+        </script>
+      </div>
+      <div class="col l12">
+        <button type="submit" class="right waves-effect waves-light btn grey darken-3">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

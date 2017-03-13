@@ -14,9 +14,16 @@ AuctionApp.config(function($routeProvider) {
     .when("/auction-list/", {
         templateUrl : "view/page/auction-list.html"
     })
-    .when("/auction/:uniqueKey", {
+    .when("/auction-list/:sortStatus", {
+        templateUrl : "view/page/auction-list.html"
+    })
+    .when("/auction/:uniqueKey/", {
         templateUrl : "view/page/auction.html",
         controller : "auctionDetailController"
+    })
+    .when("/register/", {
+        templateUrl : "view/customer/register.html",
+        controller : "authController"
     })
     .otherwise({
         templateUrl: "view/page/404.html"
@@ -33,4 +40,9 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope
   $rootScope.getMediaUrl = function() {
     return $scope.getBaseUrl() + '/media/';
   }
+
+  $rootScope.closeModal = function(modal) {
+    jQuery('#'+modal).modal('close');
+  }
+
 }]);

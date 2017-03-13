@@ -50,11 +50,44 @@ $black : #181818;
   background: linear-gradient(to bottom, rgba(254,254,254,0) 0%, rgba(255,255,255,1) 80%, rgba(255,255,255,1) 98%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefefe', endColorstr='#ffffff', GradientType=0 );
 }
+
+.error-wrap {
+  background: #e53935;
+  color: #FFF;
+  border-radius: 5px;
+  width: 100%;
+  float: left;
+  text-align: center;
+  padding: 15px;
+  &.ng-enter {
+    transition: 0.8s linear all;
+    opacity: 0;
+  }
+  &.ng-leave {
+    transition: 0.3s linear all;
+    opacity: 1;
+  }
+}
+.error-wrap-in.ng-leave.ng-leave-active {
+  opacity: 0;
+}
+
+.error-wrap-in-init .error-wrap-in.ng-enter {
+  opacity: 1;
+}
+
+.error-wrap-in.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
 .text-white {
   color: $white !important;
 }
 .text-black {
   color: $black !important;
+}
+#modal-login {
+  max-height: inherit !important;
 }
 .modal {
   &.small {

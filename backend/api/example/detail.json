@@ -1,5 +1,5 @@
 {
-  "dominated" : true,
+  "dominated" : false,
   "auction_data" :
     {
         "auction-id" : "1",

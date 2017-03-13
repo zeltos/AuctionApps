@@ -1,10 +1,9 @@
 {
-  "response" : [
-     {
+  "result" :
+    {
        "status" : "success",
        "message" : "Successfuly Login To apps!"
-     }
-  ],
+     },
   "token" : "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
   "user_data" : [
     {
