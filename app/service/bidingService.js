@@ -1,9 +1,9 @@
 AuctionApp.service('bidingService', function($http, $rootScope) {
 
     this.service = true;
-    var urlServer = $rootScope.getBaseUrl() + '/backend/api/example/';
+    var urlServer = $rootScope.baseUrlApi;
     this.submitBid = function (callback, data) {
-      $http.post( urlServer + 'submit-bid.json', data).then(function(response) {
+      $http.post( urlServer + 'submitbid', data).then(function(response) {
           callback(response.data);
       });
     }
