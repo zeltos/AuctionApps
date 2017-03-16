@@ -5,7 +5,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   auctionDataService.getDetailAuction(function(data) {
     $scope.auctionData = data.data_response[0];
     $scope.image_gallery = data.image_gallery;
-    $scope.getDominated();
+    $rootScope.getDominated();
     if (data.data_response[0].status == 'live') {
       setCountdown(data.data_response[0].auction_end_date);
     } else if (data.data_response[0].status == 'cooming'){
@@ -16,6 +16,8 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
         loadCarousel();
     }, 10);
   }, $routeParams.uniqueKey)
+
+  $scope.wasBid = false;
 
   function setCountdown(date) {
     jQuery("#product-coundown")
@@ -30,29 +32,40 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   }
 
   var urlServer = $rootScope.baseUrlApi;
-  $scope.getDominated = function() {
+  $scope.load_dominated = true;
+  $scope.load_submidbid = false;
+  $rootScope.getDominated = function() {
       var auth =  JSON.parse(localStorage.getItem("auth"));
       var user_id = '';
       if (auth) {
         user_id = auth.userData[0].user_id;
+        $http.get(urlServer + 'get-dominated/'+ user_id + '/' + $scope.auctionData.auction_id ).then(function(response) {
+          $scope.dominated = response.data.dominated;
+          $scope.auctionData.auction_current_bidding = response.data.auction_current_bidding;
+          $scope.load_dominated = false;
+          $scope.wasBid = response.data.was_bid;
+          if($scope.wasBid) {
+            $scope.formBidData.agreement_check = true;
+          }
+        });
+      } else {
+          $scope.dominated = false;
+          $scope.load_dominated = false;
       }
-      $http.get(urlServer + 'get-dominated/'+ user_id + '/' + $scope.auctionData.auction_id ).then(function(response) {
-        $scope.dominated = response.data.dominated;
-        $scope.auctionData.auction_current_bidding = response.data.auction_current_bidding;
-      });
   }
 
-
+  // set auto update dominated
+  // setInterval(function(){ $rootScope.getDominated() }, 1000);
 
   $scope.cancelAgreement = function() {
     $scope.formBidData.agreement_check = false;
   }
 
   $scope.formBidData = {};
+  $scope.formBidData.bid_value = 0;
   $scope.bidError = false;
-  $scope.bidSuccess = false;
   $scope.submitBidTrigger = function() {
-    var dataAuth = JSON.parse(localStorage.getItem("auth"));
+    $scope.load_submidbid = true;
     if (!dataAuth) {
        alert('you need to login to submit a bid!');
        jQuery('#modal-login').modal('open');
@@ -72,22 +85,22 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
     }
     console.log($scope.formBidData);
     bidingService.submitBid(function(data) {
-      console.log(data);
-      var status = data.result.status;
+      var status = data.response.status;
       if (status == 'success') {
-        $scope.bidSuccess = true;
-        $scope.bidMessage = data.result.message;
+        $rootScope.getDominated();
+        $scope.bidMessage = data.response.message;
+        $scope.load_submidbid = false;
       }
       $scope.formBidData = {};
-    }, $scope.formBidData);
+    }, $scope.formBidData, dataAuth.userData[0], $scope.auctionData.auction_id );
   }
 
   $scope.checkValidationBid = function(bid_value) {
       var difference = bid_value-$scope.auctionData.auction_current_bidding;
      if (bid_value < $scope.auctionData.auction_current_bidding) {
         return 'your bid must be biger than the current bid!';
-     } else if (difference > $scope.auctionData.auction_max_perbid) {
-        return 'max bid at once biding is' +  $scope.auctionData.auction_max_perbid + 'from the current bid!';
+     } else if (difference > $scope.auctionData.auction_max_bid) {
+        return 'max bid at once biding is :' +  $scope.auctionData.auction_max_bid + ' from the current bid!';
      }
   }
 

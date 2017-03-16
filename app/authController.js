@@ -1,11 +1,9 @@
 AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$location' , function($scope, $rootScope, $http, $location){
-  $scope.userData = {};
+  $rootScope.userData = {};
   $scope.loginData = {};
-  $scope.token = {};
+  $rootScope.token = {};
   $scope.errorLogin = false;
-  var urlServer = $scope.getBaseUrl() + '/backend/api/example/';
-
-
+  var urlServer = $rootScope.baseUrlApi;
 
   $scope.redirectLogicAuth = function() {
     if (localStorage.getItem("auth")) {
@@ -26,16 +24,18 @@ AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$loca
       console.log('u has already log in');
       return;
     }
-    $http.post( urlServer + 'login.json', $scope.loginData).then(function(response) {
-      var status = response.data.result.status;
+    $http.post( urlServer + 'loginPost', $scope.loginData).then(function(response) {
+      var status = response.data.response.status;
       if (status == 'success') {
-          $scope.token = response.data.token;
-          $scope.userData = response.data.user_data;
+          $rootScope.token = response.data.user_data.token;
+          $rootScope.userData = response.data.user_data;
           if ($scope.checkSupportStorage()) {
-            var dataAuth =  { isAuth:true, token: $scope.token, userData: $scope.userData };
+            var dataAuth =  { isAuth:true, token: $rootScope.token, userData: $rootScope.userData };
             localStorage.setItem("auth", JSON.stringify(dataAuth));
             var dataAuth = JSON.parse(localStorage.getItem("auth"));
             $scope.loginData = {};
+            $scope.errorLogin = false;
+            $rootScope.getDominated();
             jQuery('#modal-login').modal('close');
             if ($location.path() == '/register/') {
               $location.path('/myaccount/');
@@ -43,7 +43,7 @@ AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$loca
           }
       } else if (status == 'failed') {
         $scope.errorLogin = true;
-        $scope.errorLoginMessage = response.data.result.message;
+        $scope.errorLoginMessage = response.data.response.message;
       }
     });
   }

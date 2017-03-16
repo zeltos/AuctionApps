@@ -13,9 +13,29 @@
 	<link rel="stylesheet" href="lib/css/materialize-icon.css">
 
 	<script type="text/javascript" src="lib/js/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/js/jquery.maskMoney.js"></script>
+	<script type="text/javascript" src="lib/js/jquery.lazyLoad.js"></script>
 	<script type="text/javascript" src="lib/js/materialize.min.js"></script>
 	<script type="text/javascript" src="lib/js/owl.carousel.min.js"></script>
 	<script type="text/javascript" src="lib/js/jquery.countdown.min.js"></script>
+
+	 <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+
+	 <script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('ef7b65ff2e9180c4d3dc', {
+      cluster: 'ap1',
+      encrypted: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+      alert(data.message);
+    });
+  </script>
 
 	<script type="text/javascript" src="lib/js/angular/angular.min.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-route.min.js"></script>

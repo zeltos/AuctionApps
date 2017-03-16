@@ -26,6 +26,8 @@ Route::get('/api/v1/get-dominated/{auction_id}/{user_id}', 'Frontend\Api\Auction
 // Bid Controller
 Route::post('/api/v1/submitbid/','Frontend\Api\BidController@submitBid');
 
+// User Contoller
+Route::post('/api/v1/loginPost/','Frontend\Api\UserController@submitLogin');
 
 
 // Backend Adminhtml

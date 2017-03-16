@@ -1,62 +1,33 @@
-<div class="container">
+<div class="container" ng-controller="listAuctionController">
 	<h4>Current Live Auctions</h4>
 	<hr>
-	<div class="row">
-		<div class="col l4 s6">
-			 <div class="card catalog-card live">
-	            <div class="card-image">
-								<div class="card-status light-green accent-3">
-									Live <span class="status-live"></span>
-								</div>
-	              <img src="{{ getMediaUrl() }}catalog/nmd.jpg">
-	              <span class="card-title"><b>Adidas Yeezy Boost 350 V2</b></span>
-	            </div>
-	            <div class="card-content" align="center">
-	             <p>Current Bid : <b class="badge red current-bid">IDR 900.000</b></p>
-							 <p class="small-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
-	            </div>
-	            <div class="card-action" align="center" style="padding:15px 0;">
-	              <a href="#" class="btn">BID NOW!</a>
-	            </div>
-	          </div>
+	<div class="cover">
+		<div class="progress" ng-show="loading_list">
+			 <div class="indeterminate"></div>
 		</div>
-		<div class="col l4 s6">
-			 <div class="card catalog-card coming">
-	            <div class="card-image">
-								<div class="card-status grey">
-									Cooming Soon <span class="status-cooming"></span>
-								</div>
-	              <img src="{{ getMediaUrl() }}catalog/nmd.jpg">
-	              <span class="card-title"><b>Adidas Yeezy Boost 350 V2</b></span>
-	            </div>
-	            <div class="card-content" align="center">
-	             <p>Current Bid : <b class="badge red current-bid">IDR 900.000</b></p>
-							 <p class="small-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
-	            </div>
-	            <div class="card-action" align="center" style="padding:15px 0;">
-	              <a href="#" class="btn">BID NOW!</a>
-	            </div>
-	          </div>
-		</div>
-		<div class="col l4 s6">
-			 <div class="card catalog-card closed">
-	            <div class="card-image">
-								<div class="card-status red darken-4">
-									Closed <span class="status-closed"></span>
-								</div>
-	              <img src="{{ getMediaUrl() }}catalog/nmd.jpg">
-	              <span class="card-title"><b>Adidas Yeezy Boost 350 V2</b></span>
-	            </div>
-	            <div class="card-content" align="center">
-	             <p>Current Bid : <b class="badge red current-bid">IDR 900.000</b></p>
-							 <p class="small-desc">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim</p>
-	            </div>
-	            <div class="card-action" align="center" style="padding:15px 0;">
-	              <a href="#" class="btn">BID NOW!</a>
-	            </div>
-	          </div>
+		<div class="row">
+			<div class="col s6 l4" ng-repeat="aItem in auctionItems">
+				 <div class="card catalog-card {{ aItem.status }}">
+		            <div class="card-image">
+									<div class="card-status {{ aItem.status }}">
+										{{ aItem.status }} <span class="status-{{ aItem.status }}"></span>
+									</div>
+		              <img src="media/catalog/{{ aItem.image }}">
+		              <span class="card-title"><b>{{ aItem.auction_name }}</b></span>
+		            </div>
+		            <div class="card-content" align="center">
+									<p ng-if="aItem.status == 'live'">Current Bid : <b class="badge red current-bid">{{ aItem.auction_current_bidding | currency:"IDR ":0  }}</b></p>
+									<p ng-if="aItem.status == 'closed'">Sold at : <b class="badge red current-bid">{{ aItem.auction_current_bidding | currency:"IDR ":0  }}</b></p>
+		              <p ng-if="aItem.status == 'cooming'">Start Bid : <b class="badge current-bid text-black">{{ aItem.auction_start_bidding | currency:"IDR ":0  }}</b></p>
+								  <p class="small-desc">{{ aItem.auction_short_description }}</p>
+		            </div>
+		            <div class="card-action" align="center" style="padding:15px 0;">
+		              <a href="#!/auction/{{  aItem.auction_unique_key }}" class="btn" >View Detail!</a>
+		            </div>
+		          </div>
+			</div>
 		</div>
 	</div>
 	<hr>
-	<a href="#!/auction-list/" class="waves-effect waves-light btn-large  blue-grey darken-4"><i class="material-icons right">label</i>See More Auction</a>
+	<a href="#!/auction-list/all" class="waves-effect waves-light btn-large  blue-grey darken-4"><i class="material-icons right">label</i>See More Auction</a>
 </div>

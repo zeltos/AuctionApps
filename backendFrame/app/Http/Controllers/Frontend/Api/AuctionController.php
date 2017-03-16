@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Pagination\Paginator;
 use App\Http\Controllers\Controller;
 
+
 class AuctionController extends Controller
 {
     //
@@ -93,17 +94,22 @@ class AuctionController extends Controller
       $userDominated = $convertDominated[0]['user_id'];
       if (count($dominatedQ) > 0) {
         $result = array();
-        if ($dominatedQ[0] == $user_id) {
+        if ($userDominated == $user_id) {
           $isDominated = true;
         } else {
           $isDominated = false;
         }
         $result = array(
           'auction_current_bidding' => $bid_value,
-          'dominated'               => $isDominated
+          'dominated'               => $isDominated,
+          'was_bid'                 => true
         );
       } else {
-        return array('response' => 'error');
+        $result = array(
+          'auction_current_bidding' => $bid_value,
+          'dominated'               => $isDominated,
+          'was_bid'                 => false
+        );        
       }
       return $result;
     }

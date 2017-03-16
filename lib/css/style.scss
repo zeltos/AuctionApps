@@ -289,11 +289,16 @@ nav ul a.btn, nav ul a.btn-large, nav ul a.btn-large, nav ul a.btn-flat, nav ul 
   }
 }
 
+img.lazy {
+  background: #eee;
+  border:0;
+}
+
 // Auction Detail Style
 .auction-detail {
   .detail-auction-wrapper {
     .chip {
-      &.live { background: #7cb342; }
+      &.live { background: #7cb342; color:$white;}
       &.cooming { background: #424242;  }
       &.closed { background: #e53935 ; color:$white;  }
       .status-live {

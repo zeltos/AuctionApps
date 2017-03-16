@@ -8,7 +8,7 @@
     <div class="col s5">
       <div class="media-auction cover">
         <div class="media-auction-preview">
-          <img src="{{ getMediaUrl() }}catalog/{{ auctionData.image }}" alt="">
+          <img class="lazy" data-original="{{ getMediaUrl() }}catalog/{{ auctionData.image }}"alt="">
         </div>
         <div class="media-auction-list cover">
            <div class="owl-carousel" id="image_gallery">
@@ -20,6 +20,9 @@
 
 
       function loadCarousel() {
+        jQuery("img.lazy").lazyload({
+  				effect : "fadeIn"
+  			});
         jQuery('#image_gallery').owlCarousel({
           items:4,
           margin:10,
@@ -33,13 +36,18 @@
 
       </script>
       <div class="log-dominated" ng-controller="authController" ng-if="auctionData.status == 'live'">
-        <div class="chip red lighten-1 text-white" ng-if="!dominated || !checkWasLogin()">
-           <i class=" left material-icons">error_outline</i>
-          <b>Someone</b> just dominated this auction, <u>lets make your bid!</u>
+        <div class="progress" ng-show="load_dominated">
+           <div class="indeterminate"></div>
         </div>
-        <div class="chip light-green accent-2" ng-if="dominated && checkWasLogin()">
-          <i class=" left material-icons">done</i>
-          <b>Lets Enjoy!</b> You just dominated this auction
+        <div ng-show="!load_dominated">
+          <div class="chip red lighten-1 text-white" ng-if="!dominated || !checkWasLogin()">
+             <i class=" left material-icons">error_outline</i>
+            <b>Someone</b> just dominated this auction, <u>lets make your bid!</u>
+          </div>
+          <div class="chip light-green accent-2" ng-if="dominated && checkWasLogin()">
+            <i class=" left material-icons">done</i>
+            <b>Lets Enjoy!</b> You just dominated this auction
+          </div>
         </div>
       </div>
     </div>
@@ -73,15 +81,26 @@
             <form name="bidForm" ng-submit="submitBidTrigger(bidForm.$valid)">
             <div class="row">
               <div class="input-field col s6">
-                <input id="first_name2" type="number" class="validate" required="" ng-model="formBidData.bid_value" value="formBidData.bid_value|currency">
-                <label class="active" for="first_name2">Let's deal Your bid</label>
+                <input id="bid_val" type="text" class="validate" required="" ng-model="formBidData.bid_value" value="formBidData.bid_value|currency">
+                <script type="text/javascript">
+                  jQuery(document).ready(function($) {
+                    $("#bid_val").maskMoney({prefix:'IDR ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+                  });
+                </script>
+                <label class="active" for="bid_val">Let's deal Your bid</label>
               </div>
               <div class="input-field col s6">
-                <button class="waves-effect waves-light btn-large" ><i class="material-icons left">pan_tool</i>Submit Your Bid!</button>
+                <button class="waves-effect waves-light btn-large" style="width:100%;" ><i class="material-icons left">pan_tool</i>Submit Your Bid!</button>
+              </div>
+              <div class="col l12">
+                <div class="progress" ng-if="load_submitbid">
+                   <div class="indeterminate"></div>
+               </div>
               </div>
             </div>
+            <div class="agreement-wrap" ng-show="!wasBid">
             <p>
-              <input type="checkbox" class="filled-in validate" id='agreement-check' ng-model="formBidData.agreement_check"  required/>
+              <input type="checkbox" class="filled-in validate" id='agreement-check' ng-model="formBidData.agreement_check" />
               <label for="agreement-check" id="trigger-agreement" class="validate">Before you submit bid, you must agree this term & condition</label>
               <script type="text/javascript">
                 function clickImg(indetifity) {
@@ -101,7 +120,6 @@
                 });
               </script>
             </p>
-            <p class="note-p"><i>*max bid at once biding is : IDR {{ auctionData.auction_max_perbid }} from the current bid</i></p>
             <div id="modal-agreement" class="modal modal-fixed-footer">
               <div class="modal-content">
                 <h4>Term & Condition</h4>
@@ -114,6 +132,8 @@
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
               </div>
             </div>
+          </div>
+            <p class="note-p"><i>*max bid at once biding is : <b style="color:red;"> {{ auctionData.auction_max_bid | currency:"IDR ":0 }}</b> from the current bid</i></p>
           </form>
           </div>
       </div>
