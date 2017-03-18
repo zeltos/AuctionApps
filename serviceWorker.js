@@ -6,6 +6,7 @@ this.addEventListener('install', function(event) {
         'lib/css/materialize.min.css',
         'lib/css/owl.carousel.min.css',
         'lib/css/jquery.countdown.css',
+        'lib/js/',
         'lib/js/jquery.min.js',
         'lib/js/angular/angular.min.js',
       ]);
