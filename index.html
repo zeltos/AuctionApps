@@ -19,24 +19,6 @@
 	<script type="text/javascript" src="lib/js/owl.carousel.min.js"></script>
 	<script type="text/javascript" src="lib/js/jquery.countdown.min.js"></script>
 
-	 <!-- <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
-
-	 <script>
-
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
-
-    var pusher = new Pusher('ef7b65ff2e9180c4d3dc', {
-      cluster: 'ap1',
-      encrypted: true
-    });
-
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      alert(data.message);
-    });
-  </script> -->
-
 	<script type="text/javascript" src="lib/js/angular/angular.min.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-route.min.js"></script>
 	<script type="text/javascript" src="lib/js/angular/angular-locale_id-id.js"></script>
@@ -55,6 +37,19 @@
 	<script type="text/javascript" src="app/service/auctionDataService.js"></script>
 
 	<script type="text/javascript" src="lib/js/script.js"></script>
+	<script type="text/javascript" src="serviceWorker.js"></script>
+	<script type="text/javascript">
+	if ('serviceWorker' in navigator) {
+		navigator.serviceWorker.register('serviceWorker.js', {scope: './'})
+		.then(function(reg) {
+			// registration worked
+			console.log('Registration succeeded. Scope is ' + reg.scope);
+		}).catch(function(error) {
+			// registration failed
+			console.log('Registration failed with ' + error);
+		});
+	}
+	</script>
 
 </head>
 <body ng-controller="appController">
