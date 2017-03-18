@@ -78,9 +78,15 @@ class UserController extends Controller
           ]);
         $status   = 'success';
         $message  = 'Success Registered User! check your email to activation your accout.';
-        // Mail::send('emails.welcome', ['key' => 'value'], function($message) {
-        //     $message->to('medianto.jaelani@gmail.com', 'Medianto Jaelani')->subject('Welcome!');
-        // });
+
+        $data = array(
+          'user_name'       => $name,
+          'activation_key'  => $key
+        );
+
+        Mail::send('emails.welcome', $data, function($message) use ($email, $name){
+            $message->to($email, $name)->subject('Activation Account For Auctions Brandoutlet!');
+        });
       }
 
       $result['response'] = array(
@@ -103,6 +109,7 @@ class UserController extends Controller
     public function userActivation($key) {
       $checkUsersQ = DB::table('users')->select('user_id','user_status')->where('activation_key', $key)->get();
       if (count($checkUsersQ) > 0) {
+        $updateStatusQ = DB::table('users')->where('activation_key', $key)->update(['user_status' => '1']);
         return 'success';
       }
     }
