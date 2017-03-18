@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^kerekeren\.id [NC]
+RewriteCond %{SERVER_PORT} 80
+RewriteRule ^(.*)$ https://dev.kerekeren.id/$1 [R,L]
