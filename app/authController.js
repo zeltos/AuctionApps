@@ -1,8 +1,10 @@
-AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$location' , function($scope, $rootScope, $http, $location){
+AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$location', '$route' ,
+function($scope, $rootScope, $http, $location, $route){
   $rootScope.userData = {};
   $scope.loginData = {};
   $rootScope.token = {};
   $scope.errorLogin = false;
+  $scope.loading_login = false;
   var urlServer = $rootScope.baseUrlApi;
 
   $scope.redirectLogicAuth = function() {
@@ -20,6 +22,8 @@ AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$loca
   $scope.redirectLogicAuth();
 
   $scope.login = function(isValid) {
+    $scope.errorLogin = false;
+    $scope.loading_login = true;
     if ($scope.checkWasLogin()) {
       console.log('u has already log in');
       return;
@@ -35,7 +39,9 @@ AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$loca
             var dataAuth = JSON.parse(localStorage.getItem("auth"));
             $scope.loginData = {};
             $scope.errorLogin = false;
-            $rootScope.getDominated();
+            if ($route.current.routeName == 'auction-detail') {
+              $rootScope.getDominated();
+            }
             jQuery('#modal-login').modal('close');
             if ($location.path() == '/register/') {
               $location.path('/myaccount/');
@@ -45,6 +51,7 @@ AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$loca
         $scope.errorLogin = true;
         $scope.errorLoginMessage = response.data.response.message;
       }
+      $scope.loading_login = false;
     });
   }
 
@@ -63,15 +70,44 @@ AuctionApp.controller('authController', ['$scope', '$rootScope', '$http', '$loca
 
   $scope.logout = function() {
     localStorage.removeItem('auth');
+    if ($route.current.routeName == 'auction-detail') {
+        $rootScope.showAgreement();
+    }
     console.log('u has logout from apps');
   }
 
   $scope.errorRegister = false;
+  $scope.successRegister = false;
+  $scope.loading_register = false;
   $scope.registerData = {};
   $scope.submitRegister = function(isValid) {
+    $scope.errorRegister = false;
+    $scope.loading_register = true;
     if (isValid) {
-      console.log($scope.registerData);
+      $http.post(urlServer +'userRegister', $scope.registerData).then(function(response){
+        $scope.loading_register = false;
+        var result = response.data;
+        if (result.response.status == 'success') {
+          $scope.successRegister = true;
+          $scope.RegisterMessage = result.response.message;
+           $scope.registerData = {};
+        } else {
+          $scope.errorRegister = true;
+          $scope.RegisterMessage = result.response.message;
+        }
+      });
     }
   }
+$scope.clearState = function(state) {
+  if (state == 'login') {
+    $scope.errorLogin = false;
+  }
+}
+
+ $('#modal-login').modal({
+  complete: function() {
+    $scope.clearState('login');
+   } 
+ });
 
 }]);

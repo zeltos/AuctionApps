@@ -28,6 +28,8 @@ Route::post('/api/v1/submitbid/','Frontend\Api\BidController@submitBid');
 
 // User Contoller
 Route::post('/api/v1/loginPost/','Frontend\Api\UserController@submitLogin');
+Route::post('/api/v1/userRegister/','Frontend\Api\UserController@userRegister');
+Route::get('/api/v1/user/activation/{key}','Frontend\Api\UserController@userActivation');
 
 
 // Backend Adminhtml

@@ -15,5 +15,6 @@ class VerifyCsrfToken extends BaseVerifier
         //
         '/api/v1/submitbid/',
         '/api/v1/loginPost/',
+        '/api/v1/userRegister/',
     ];
 }

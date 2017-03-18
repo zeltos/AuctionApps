@@ -61,6 +61,22 @@ class AuctionController extends Controller
                         ->groupBy('a.auction_id')->get();
       $datas = json_decode($dataAuction, true);
       $auction_id = $datas[0]['auction_id'];
+      $auctionArray = $datas[0];
+      $now = new \DateTime();
+      if ($auctionArray['status'] == 'live') {
+        $end_date = new \DateTime($auctionArray['auction_end_date']);
+        $difference = $end_date->diff($now);
+        if ($difference->invert == 0 && $difference->d > 0) {
+          DB::table('auctions')->where('auction_id',$auction_id)->update(['status' => 'closed']);
+        }
+      } elseif ($auctionArray['status'] == 'cooming') {
+        $start_date = new \DateTime($auctionArray['auction_start_date']);
+        $difference = $end_date->diff($now);
+        if ($difference->invert == 1 && $difference->d >= 0) {
+          DB::table('auctions')->where('auction_id',$auction_id)->update(['status' => 'live']);
+        }
+      }
+
       $image_gallery = DB::table('auction_image')->select('image')->where('auction_id',$auction_id)->get();
 
       $result = array();
@@ -109,7 +125,7 @@ class AuctionController extends Controller
           'auction_current_bidding' => $bid_value,
           'dominated'               => $isDominated,
           'was_bid'                 => false
-        );        
+        );
       }
       return $result;
     }

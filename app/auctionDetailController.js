@@ -17,8 +17,11 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
     }, 10);
   }, $routeParams.uniqueKey)
 
-  $scope.wasBid = false;
-
+  $rootScope.wasBid = false;
+  $rootScope.showAgreement = function() {
+      $rootScope.wasBid = false;
+      $scope.formBidData.agreement_check = false;
+  }
   function setCountdown(date) {
     jQuery("#product-coundown")
     .countdown(date, function(event) {
@@ -43,8 +46,8 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
           $scope.dominated = response.data.dominated;
           $scope.auctionData.auction_current_bidding = response.data.auction_current_bidding;
           $scope.load_dominated = false;
-          $scope.wasBid = response.data.was_bid;
-          if($scope.wasBid) {
+          $rootScope.wasBid = response.data.was_bid;
+          if($rootScope.wasBid) {
             $scope.formBidData.agreement_check = true;
           }
         });
@@ -66,6 +69,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   $scope.bidError = false;
   $scope.submitBidTrigger = function() {
     $scope.load_submidbid = true;
+    var dataAuth =  JSON.parse(localStorage.getItem("auth"));
     if (!dataAuth) {
        alert('you need to login to submit a bid!');
        jQuery('#modal-login').modal('open');

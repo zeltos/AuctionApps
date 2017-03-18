@@ -21,6 +21,7 @@ AuctionApp.config(function($routeProvider) {
         templateUrl : "view/page/auction-list.html"
     })
     .when("/auction/:uniqueKey/", {
+        routeName : "auction-detail",
         templateUrl : "view/page/auction.html",
         controller : "auctionDetailController"
     })

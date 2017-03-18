@@ -1,12 +1,17 @@
 <div class="container" ng-controller="authController">
   <h3>Create New Account</h3>
   <span class="sptr"></span>
+  <div class="progress" ng-if="loading_register">
+     <div class="indeterminate"></div>
+  </div>
+  <p class="error-wrap" ng-if="errorRegister"><i class="material-icons prefix">error_outline</i> ERROR : <span ng-bind-html='RegisterMessage'></span></p>
+  <p class="success-wrap" ng-if="successRegister">  <i class="material-icons prefix">done</i> SUCCESS : <span ng-bind-html='RegisterMessage'></span></p>
   <div class="row">
     <form name="userForm" ng-submit="submitRegister(userForm.$valid)">
       <div class="input-field col s12 l12">
         <i class="material-icons prefix">account_circle</i>
         <input id="first_name" type="text" class="validate" required ng-model="registerData.name">
-        <label for="first_name" class="active">First Name</label>
+        <label for="first_name" class="active">Name</label>
       </div>
       <div class="input-field col s12 l12">
         <i class="material-icons prefix">vpn_key</i>

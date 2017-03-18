@@ -52,13 +52,16 @@ $black : #181818;
 }
 
 .error-wrap {
-  background: #e53935;
-  color: #FFF;
+  background: #ffebee ;
+  // color: #e53935;
+  border:3px solid #e53935;
   border-radius: 5px;
   width: 100%;
   float: left;
   text-align: center;
   padding: 15px;
+  i { vertical-align: bottom;}
+
   &.ng-enter {
     transition: 0.8s linear all;
     opacity: 0;
@@ -78,6 +81,25 @@ $black : #181818;
 
 .error-wrap-in.ng-enter.ng-enter-active {
   opacity: 1;
+}
+
+.success-wrap {
+  background: #f1f8e9 ;
+  border:3px solid #8bc34a;
+  border-radius: 5px;
+  width: 100%;
+  float: left;
+  text-align: center;
+  padding: 15px;
+  i { vertical-align: bottom;}
+  &.ng-enter {
+    transition: 0.8s linear all;
+    opacity: 0;
+  }
+  &.ng-leave {
+    transition: 0.3s linear all;
+    opacity: 1;
+  }
 }
 
 .text-white {

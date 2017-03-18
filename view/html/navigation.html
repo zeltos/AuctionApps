@@ -16,7 +16,10 @@
       <h4 class="center-align">Sign in to Auction</h4>
       <p class="single-p center-align">If you already have an account please fill this form.</p>
       <span class="sptr"></span>
-      <p class="error-wrap" ng-if="errorLogin">ERROR : {{ errorLoginMessage }}</p>
+      <p class="error-wrap" ng-if="errorLogin">ERROR : <span ng-bind-html='errorLoginMessage'></span></p>
+      <div class="progress" ng-if="loading_login">
+         <div class="indeterminate"></div>
+      </div>
       <form name="loginForm" ng-submit="login(loginForm.$valid)">
         <div class="cover">
           <div class="row">
@@ -35,14 +38,9 @@
         <p class="single-p center-align">didn't have an account yet? <a href="#!/register/" ng-click="closeModal('modal-login')">Create new account</a></p>
         <div class="cover right-align" style="padding:20px 0;">
           <button type="submit" class="waves-effect waves-light btn"><i class="material-icons right">vpn_key</i>Sign In</button>
-          <a class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+          <a ng-click="clearState('login')" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
         </div>
       </form>
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  jQuery(document).ready(function($) {
-    $('#modal-login').modal();
-  });
-</script>
