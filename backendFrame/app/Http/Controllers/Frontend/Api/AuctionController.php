@@ -71,7 +71,7 @@ class AuctionController extends Controller
         }
       } elseif ($auctionArray['status'] == 'cooming') {
         $start_date = new \DateTime($auctionArray['auction_start_date']);
-        $difference = $end_date->diff($now);
+        $difference = $start_date->diff($now);
         if ($difference->invert == 1 && $difference->d >= 0) {
           DB::table('auctions')->where('auction_id',$auction_id)->update(['status' => 'live']);
         }

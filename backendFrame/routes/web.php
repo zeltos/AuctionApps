@@ -10,12 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/clear-cache', function() {
-    $exitCode = Artisan::call('cache:clear');
-    // return what you want
-});
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/mailsend', function () {
+    // dd(Config::get('mail'));
+    Mail::send('emails.welcome', ['user' => 'Medianto Jaelani'], function($message) {
+    $message->to('medianto.jaelani@gmail.com', 'Medianto Jaelani')->subject('This is the subject');
+});
+    return 'success send mail';
 });
 
 // API for Frontend
