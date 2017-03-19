@@ -40,12 +40,18 @@
 
 	<script type="text/javascript" src="lib/js/script.js"></script>
 	<script type="text/javascript" src="serviceWorker.js"></script>
+	<script type="text/javascript" src="main.js"></script>
 	<script type="text/javascript">
-		if ('serviceWorker' in navigator) {
+		if ('serviceWorker' in navigator && 'PushManager' in window) {
+		console.log('Service Worker and Push is supported');
+
 	  window.addEventListener('load', function() {
 	    navigator.serviceWorker.register('./serviceWorker.js').then(function(registration) {
 	      // Registration was successful
 	      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+				swRegistration = registration;
+				initialiseUI();
+				console.log(swRegistration);
 	    }).catch(function(err) {
 	      // registration failed :(
 	      console.log('ServiceWorker registration failed: ', err);

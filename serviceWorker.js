@@ -1,4 +1,4 @@
-var CACHE_NAME = 'auction-cache_v1';
+var CACHE_NAME = 'auction-cache_v2';
 var urlsToCache = [
   '/',
   'lib/css/materialize.min.css',
@@ -15,9 +15,10 @@ self.addEventListener('install', function(event) {
       .then(function(cache) {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
-      }).then(function() {
-        return self.skipWaiting();
       })
+      // .then(function() {
+      //   return self.skipWaiting();
+      // })
   );
 });
 
@@ -62,7 +63,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['auction-cache_v1'];
+  var cacheWhitelist = ['auction-cache_v2'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
@@ -74,5 +75,32 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
-  return self.clients.claim();
+  // return self.clients.claim();
+});
+
+// push notifiaction
+
+self.addEventListener('push', function(event) {
+  console.log('[Service Worker] Push Received.');
+  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+
+  const title = 'Push Auction Apps';
+  const options = {
+    body: 'Yay it works.',
+    icon: 'media/frontend/images/logo-gram-bo-96.png',
+    badge: 'media/frontend/images/logo-gram-bo-96.png'
+  };
+
+  const notificationPromise = self.registration.showNotification(title, options);
+  event.waitUntil(notificationPromise);
+});
+
+self.addEventListener('notificationclick', function(event) {
+  console.log('[Service Worker] Notification click Received.');
+
+  event.notification.close();
+
+  event.waitUntil(
+    clients.openWindow('https://dev.kerekeren.id/AuctionApps/#!/auction/AEYGF7K0DM1X/')
+  );
 });
