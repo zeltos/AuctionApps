@@ -10,6 +10,9 @@ this.addEventListener('install', function(event) {
         'lib/js/jquery.min.js',
         'lib/js/angular/angular.min.js',
       ]);
+      cache.delete('lib/js').then(function(response) {
+      console.log('success delete shit!');
+      });
     })
   );
 });

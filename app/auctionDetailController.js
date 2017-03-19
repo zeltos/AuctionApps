@@ -43,13 +43,15 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
       if (auth) {
         user_id = auth.userData[0].user_id;
         $http.get(urlServer + 'get-dominated/'+ user_id + '/' + $scope.auctionData.auction_id ).then(function(response) {
-          $scope.dominated = response.data.dominated;
-          $scope.auctionData.auction_current_bidding = response.data.auction_current_bidding;
-          $scope.load_dominated = false;
-          $rootScope.wasBid = response.data.was_bid;
-          if($rootScope.wasBid) {
-            $scope.formBidData.agreement_check = true;
+          if (!response.data.message) {
+            $scope.dominated = response.data.dominated;
+            $scope.auctionData.auction_current_bidding = response.data.auction_current_bidding;
+            $rootScope.wasBid = response.data.was_bid;
+            if($rootScope.wasBid) {
+              $scope.formBidData.agreement_check = true;
+            }
           }
+            $scope.load_dominated = false;
         });
       } else {
           $scope.dominated = false;
@@ -65,7 +67,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   }
 
   $scope.formBidData = {};
-  $scope.formBidData.bid_value = 0;
+  // $scope.formBidData.bid_value = 0;
   $scope.bidError = false;
   $scope.submitBidTrigger = function() {
     $scope.load_submidbid = true;

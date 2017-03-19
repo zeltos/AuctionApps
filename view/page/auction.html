@@ -5,7 +5,7 @@
     <h4 class="">{{ auctionData.auction_name }}</h4>
   </div>
   <div class="row">
-    <div class="col s5">
+    <div class="col s12 l5">
       <div class="media-auction cover">
         <div class="media-auction-preview">
           <img class="lazy" data-original="{{ getMediaUrl() }}catalog/{{ auctionData.image }}"alt="">
@@ -51,7 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="col s7">
+    <div class="col s12 l7">
       <div class="detail-auction-wrapper cover">
         <div class="chip {{ auctionData.status}}"  style="padding-right:15px;">
           <b ng-if=" auctionData.status == 'cooming'">This Auction Will Be Start on :</b>
@@ -80,16 +80,16 @@
           <div ng-if="auctionData.status == 'live'" class="form-bid cover">
             <form name="bidForm" ng-submit="submitBidTrigger(bidForm.$valid)">
             <div class="row">
-              <div class="input-field col s6">
+              <div class="input-field col l6 s12">
                 <input id="bid_val" type="text" class="validate" required="" ng-model="formBidData.bid_value" value="formBidData.bid_value|currency">
                 <script type="text/javascript">
                   jQuery(document).ready(function($) {
-                    $("#bid_val").maskMoney({prefix:'IDR ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+                    // $("#bid_val").maskMoney({prefix:'IDR ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
                   });
                 </script>
                 <label class="active" for="bid_val">Let's deal Your bid</label>
               </div>
-              <div class="input-field col s6">
+              <div class="input-field col l6 s12">
                 <button class="waves-effect waves-light btn-large" style="width:100%;" ><i class="material-icons left">pan_tool</i>Submit Your Bid!</button>
               </div>
               <div class="col l12">

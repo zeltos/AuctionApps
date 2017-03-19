@@ -57,4 +57,9 @@ class BidController extends Controller
       }
       return false;
     }
+
+    public function getListBid($user_id) {
+      $listBiddingQ = DB::table('auction_bid as ab')->select('ab.*', 'a.auction_name','a.auction_unique_key','a.status')->join('auctions as a', 'ab.auction_id','=','a.auction_id')->where('user_id', $user_id)->orderBy('created_at','desc')->get();
+      return $listBiddingQ;
+    }
 }

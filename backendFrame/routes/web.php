@@ -33,8 +33,10 @@ Route::get('/api/v1/get-dominated/{auction_id}/{user_id}', 'Frontend\Api\Auction
 
 // Bid Controller
 Route::post('/api/v1/submitbid/','Frontend\Api\BidController@submitBid');
+Route::get('/api/v1/list-bidding/{user_id}','Frontend\Api\BidController@getListBid');
 
 // User Contoller
+Route::get('/api/v1/user/{user_id}','Frontend\Api\UserController@getAccountData');
 Route::post('/api/v1/loginPost/','Frontend\Api\UserController@submitLogin');
 Route::post('/api/v1/userRegister/','Frontend\Api\UserController@userRegister');
 Route::get('/api/v1/user/activation/{key}','Frontend\Api\UserController@userActivation');

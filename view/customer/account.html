@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="row">
+    <div class="col l12">
+      <h4>My Account</h4>
+      <span class="sptr"></span>
+      <p class="single-p"><b>Hello, {{ account.user_name }} </b> <a href="#">[edit]</a></p>
+      <p>From your My Account Dashboard you have the ability to view a snapshot of your recent account activity.</p>
+      <span class="sptr"></span>
+      <div class="cover">
+        <div class="chip blue lighten-2 text-white"><b>Auction that you followed.</b></div>
+        <span class="sptr"></span>  
+      </div>
+      <div class="cover">
+        <div class="chip"><b>Your Bid Activation log.</b></div>
+        <div class="cover">
+          <p class="single-p" ng-if="listbidding.length == 0">You just haven't made an offer at any auction.</p>
+          <ul ng-if="listbidding.length > 0">
+            <li ng-repeat="list in listbidding">You have made an offer worth <b style="color:red;">{{list.bid_value | currency:"IDR ":0}} </b> at <a href="#!/auction/{{list.auction_unique_key}}">{{list.auction_name}} ({{list.status}})</a> on <u>{{ list.created_at | convertDate | date:'EEEE, MMMM d, y - h:mm:ss a' }}</u></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

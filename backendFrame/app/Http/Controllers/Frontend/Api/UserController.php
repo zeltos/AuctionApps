@@ -114,4 +114,11 @@ class UserController extends Controller
       }
     }
 
+    public function getAccountData($user_id) {
+      $result = array();
+      $accountQ = DB::table('users')->select('*')->where('user_id', $user_id)->get();
+      $result['data'] = $accountQ[0];
+      return $result;
+    }
+
 }

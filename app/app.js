@@ -26,8 +26,15 @@ AuctionApp.config(function($routeProvider) {
         controller : "auctionDetailController"
     })
     .when("/register/", {
+        routeName : "registerUser",
         templateUrl : "view/customer/register.html",
         controller : "authController"
+    })
+    .when("/myaccount/", {
+        module : "account",
+        routeName : "myAccount",
+        templateUrl : "view/customer/account.html",
+        controller : "accountController"
     })
     .otherwise({
         templateUrl: "view/page/404.html"

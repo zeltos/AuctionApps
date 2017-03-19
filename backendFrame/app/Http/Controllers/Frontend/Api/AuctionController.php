@@ -105,10 +105,11 @@ class AuctionController extends Controller
                   ->orderBy('bid_value','DESC')
                   ->limit(1)
                   ->get();
-      $convertDominated = json_decode($dominatedQ, true);
-      $bid_value = $convertDominated[0]['bid_value'];
-      $userDominated = $convertDominated[0]['user_id'];
+
       if (count($dominatedQ) > 0) {
+        $convertDominated = json_decode($dominatedQ, true);
+        $bid_value = $convertDominated[0]['bid_value'];
+        $userDominated = $convertDominated[0]['user_id'];
         $result = array();
         if ($userDominated == $user_id) {
           $isDominated = true;
@@ -122,9 +123,7 @@ class AuctionController extends Controller
         );
       } else {
         $result = array(
-          'auction_current_bidding' => $bid_value,
-          'dominated'               => $isDominated,
-          'was_bid'                 => false
+          'message' => 'there is no bid from this user'
         );
       }
       return $result;

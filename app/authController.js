@@ -7,20 +7,6 @@ function($scope, $rootScope, $http, $location, $route){
   $scope.loading_login = false;
   var urlServer = $rootScope.baseUrlApi;
 
-  $scope.redirectLogicAuth = function() {
-    if (localStorage.getItem("auth")) {
-      if ($location.path() == '/register/') {
-        $location.path('/myaccount/');
-      }
-    } else {
-      if ($location.path() == '/myaccount/') {
-        $location.path('/');
-      }
-    }
-  }
-
-  $scope.redirectLogicAuth();
-
   $scope.login = function(isValid) {
     $scope.errorLogin = false;
     $scope.loading_login = true;
@@ -73,6 +59,10 @@ function($scope, $rootScope, $http, $location, $route){
     if ($route.current.routeName == 'auction-detail') {
         $rootScope.showAgreement();
     }
+    if ($route.current.module == 'account') {
+        $location.path('/');
+    }
+    
     console.log('u has logout from apps');
   }
 
@@ -107,7 +97,8 @@ $scope.clearState = function(state) {
  $('#modal-login').modal({
   complete: function() {
     $scope.clearState('login');
-   } 
+   }
  });
+
 
 }]);
