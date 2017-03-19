@@ -40,15 +40,16 @@
 	<script type="text/javascript" src="lib/js/script.js"></script>
 	<script type="text/javascript" src="serviceWorker.js"></script>
 	<script type="text/javascript">
-	if ('serviceWorker' in navigator) {
-		navigator.serviceWorker.register('serviceWorker.js', {scope: './'})
-		.then(function(reg) {
-			// registration worked
-			console.log('Registration succeeded. Scope is ' + reg.scope);
-		}).catch(function(error) {
-			// registration failed
-			console.log('Registration failed with ' + error);
-		});
+		if ('serviceWorker' in navigator) {
+	  window.addEventListener('load', function() {
+	    navigator.serviceWorker.register('./serviceWorker.js').then(function(registration) {
+	      // Registration was successful
+	      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+	    }).catch(function(err) {
+	      // registration failed :(
+	      console.log('ServiceWorker registration failed: ', err);
+	    });
+	  });
 	}
 	</script>
 

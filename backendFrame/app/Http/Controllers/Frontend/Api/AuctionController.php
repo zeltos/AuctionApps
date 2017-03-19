@@ -67,12 +67,14 @@ class AuctionController extends Controller
         $end_date = new \DateTime($auctionArray['auction_end_date']);
         $difference = $end_date->diff($now);
         if ($difference->invert == 0 && $difference->d > 0) {
+          $datas[0]['status'] = 'closed';
           DB::table('auctions')->where('auction_id',$auction_id)->update(['status' => 'closed']);
         }
       } elseif ($auctionArray['status'] == 'cooming') {
         $start_date = new \DateTime($auctionArray['auction_start_date']);
         $difference = $start_date->diff($now);
-        if ($difference->invert == 1 && $difference->d >= 0) {
+        if ($difference->invert == 0 && $difference->d >= 0) {
+          $datas[0]['status'] = 'live';
           DB::table('auctions')->where('auction_id',$auction_id)->update(['status' => 'live']);
         }
       }
@@ -92,7 +94,7 @@ class AuctionController extends Controller
           'message' => 'Failed to load data auction with key '.$key
         );
       }
-      $result['data_response'] = $dataAuction;
+      $result['data_response'] = $datas;
 
       return $result;
 
@@ -116,11 +118,21 @@ class AuctionController extends Controller
         } else {
           $isDominated = false;
         }
-        $result = array(
-          'auction_current_bidding' => $bid_value,
-          'dominated'               => $isDominated,
-          'was_bid'                 => true
-        );
+        $wasBidQ = DB::table('auction_bid')->select('bid_id')->where('user_id',$user_id)->where('auction_id',$auction_id)->get();
+        if (count($wasBidQ) > 0) {
+          $wasBid = true;
+          $result = array(
+            'auction_current_bidding' => $bid_value,
+            'dominated'               => $isDominated,
+            'was_bid'                 => $wasBid
+          );
+        } else {
+          $wasBid=false;
+          $result = array(
+            'message' => 'there is no bid from this user'
+          );
+        }
+
       } else {
         $result = array(
           'message' => 'there is no bid from this user'
