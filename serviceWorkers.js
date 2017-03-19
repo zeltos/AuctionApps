@@ -1,4 +1,4 @@
-var CACHE_NAME = 'auction-cache_v2';
+var CACHE_NAME = 'auction-cache_v3';
 var urlsToCache = [
   '/',
   'lib/css/materialize.min.css',
@@ -63,7 +63,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['auction-cache_v2'];
+  var cacheWhitelist = ['auction-cache_v3'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
