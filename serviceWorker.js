@@ -1,4 +1,3 @@
-
 var CACHE_NAME = 'auction-cache_v1';
 var urlsToCache = [
   '/',
