@@ -436,7 +436,7 @@ img.lazy {
   }
 }
 
-$iphone4-media-query: "only screen and (max-width : 360px)";
+$iphone4-media-query: "only screen and (max-width : 380px)";
 @media #{$iphone4-media-query} {
   .brand-logo {
     img {

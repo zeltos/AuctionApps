@@ -6,7 +6,7 @@ AuctionApp.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
   }]);
 
 // Routing Auction frontend
-AuctionApp.config(function($routeProvider) {
+AuctionApp.config(function($routeProvider, $locationProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "view/page/home.html"
@@ -39,6 +39,7 @@ AuctionApp.config(function($routeProvider) {
     .otherwise({
         templateUrl: "view/page/404.html"
     });
+    // $locationProvider.html5Mode(true);
 });
 
 AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope, $rootScope){

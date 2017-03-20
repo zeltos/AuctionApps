@@ -1,4 +1,4 @@
-var CACHE_NAME = 'auction-cache_v3';
+var CACHE_NAME = 'auction-cache_v2';
 var urlsToCache = [
   '/',
   'lib/css/materialize.min.css',
@@ -16,9 +16,9 @@ self.addEventListener('install', function(event) {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
       })
-      // .then(function() {
-      //   return self.skipWaiting();
-      // })
+      .then(function() {
+        return self.skipWaiting();
+      })
   );
 });
 
@@ -63,7 +63,7 @@ self.addEventListener('fetch', function(event) {
 });
 
 self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['auction-cache_v3'];
+  var cacheWhitelist = ['auction-cache_v2'];
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
@@ -75,7 +75,7 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
-  // return self.clients.claim();
+  return self.clients.claim();
 });
 
 // push notifiaction
