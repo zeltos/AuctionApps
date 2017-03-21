@@ -28,28 +28,23 @@ notifyMe();
 
 function notifyMe() {
   // Let's check if the browser supports notifications
-  const title = 'Notification Auction Apps';
+  const title = 'Welcome to BO Auction';
   const options = {
-    body: 'Yay it works.',
+    body: 'Register, Bid and Become Winner!.',
     icon: 'media/frontend/images/logo-gram-bo-96.png',
     badge: 'media/frontend/images/logo-gram-bo-96.png'
   };
   if (!("Notification" in window)) {
     alert("This browser does not support desktop notification");
   }
-
-  // Let's check whether notification permissions have already been granted
-  else if (Notification.permission === "granted") {
-    // If it's okay let's create a notification
-    var notification = new Notification(title,options);
-  }
-
   // Otherwise, we need to ask the user for permission
   else if (Notification.permission !== "denied") {
     Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
-        var notification = new Notification(title,options);
+        navigator.serviceWorker.ready.then(function(registration) {
+        registration.showNotification(title, options);
+      });
       }
     });
   }

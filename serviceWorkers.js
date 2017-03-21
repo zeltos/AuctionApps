@@ -1,25 +1,24 @@
-var CACHE_NAME = 'auction-cache_v2';
-var urlsToCache = [
-  '/',
+const STATIC_CACHE_NAME = 'static-cache-v1';
+const APP_CACHE_NAME = 'app-cache-#VERSION';
+const CACHE_APP = [
+    '/',
+]
+const CACHE_STATIC = [
   'lib/css/materialize.min.css',
   'lib/css/owl.carousel.min.css',
   'lib/css/jquery.countdown.css',
   'lib/js/',
   'lib/css/',
-];
+]
 
-self.addEventListener('install', function(event) {
-  // Perform install steps
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
-      })
-      .then(function() {
-        return self.skipWaiting();
-      })
-  );
+self.addEventListener('install',function(e){
+    e.waitUntil(
+        Promise.all([caches.open(STATIC_CACHE_NAME),caches.open(APP_CACHE_NAME),self.skipWaiting()]).then(function(storage){
+            var static_cache = storage[0];
+            var app_cache = storage[1];
+            return Promise.all([static_cache.addAll(CACHE_STATIC),app_cache.addAll(CACHE_APP)]);
+        })
+    );
 });
 
 self.addEventListener('fetch', function(event) {
@@ -50,7 +49,7 @@ self.addEventListener('fetch', function(event) {
             // to clone it so we have two streams.
             var responseToCache = response.clone();
 
-            caches.open(CACHE_NAME)
+            caches.open(STATIC_CACHE_NAME)
               .then(function(cache) {
                 cache.put(event.request, responseToCache);
               });
@@ -62,20 +61,22 @@ self.addEventListener('fetch', function(event) {
     );
 });
 
-self.addEventListener('activate', function(event) {
-  var cacheWhitelist = ['auction-cache_v2'];
-  event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.map(function(key) {
-          if (cacheWhitelist.indexOf(key) === -1) {
-            return caches.delete(key);
-          }
-        })
-      );
-    })
-  );
-  return self.clients.claim();
+self.addEventListener('activate', function(e) {
+    e.waitUntil(
+        Promise.all([
+            self.clients.claim(),
+            caches.keys().then(function(cacheNames) {
+                return Promise.all(
+                    cacheNames.map(function(cacheName) {
+                        if (cacheName !== APP_CACHE_NAME && cacheName !== STATIC_CACHE_NAME) {
+                            console.log('deleting',cacheName);
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            })
+        ])
+    );
 });
 
 // push notifiaction
