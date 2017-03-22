@@ -14,7 +14,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
 
     setTimeout(function () {
         loadCarousel();
-    }, 10);
+    }, 500);
   }, $routeParams.uniqueKey)
 
   $rootScope.wasBid = false;

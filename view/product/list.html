@@ -59,7 +59,7 @@
   <br>
   <ul class="pagination center-align" ng-if="totalPage.length > 1">
     <li ng-class="{'disabled': dataPage.prev_page_url == null}" class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-    <li class="waves-effect" ng-class="{'disabled : '}" ng-repeat="p in totalPage"><a href="{{p.link}}">{{p.page}}</a></li>
+    <li class="waves-effect" ng-repeat="p in totalPage"><a href="{{p.link}}">{{p.page}}</a></li>
     <li ng-class="{'disabled': dataPage.prev_page_url == null}" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
   </ul>
 </div>

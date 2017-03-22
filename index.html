@@ -40,23 +40,16 @@
 	<script type="text/javascript" src="app/service/auctionDataService.js"></script>
 
 	<script type="text/javascript" src="lib/js/script.js"></script>
-	<script type="text/javascript" src="serviceWorkers.js?1234567890"></script>
+	<script type="text/javascript" src="service-worker.js"></script>
 	<script type="text/javascript" src="main.js"></script>
 	<script type="text/javascript">
 		if ('serviceWorker' in navigator && 'PushManager' in window) {
 		console.log('Service Worker and Push is supported');
 
 	  window.addEventListener('load', function() {
-	    navigator.serviceWorker.register('./serviceWorkers.js').then(function(registration) {
-	      // Registration was successful
-	      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-				swRegistration = registration;
-				initialiseUI();
-				console.log(swRegistration);
-	    }).catch(function(err) {
-	      // registration failed :(
-	      console.log('ServiceWorker registration failed: ', err);
-	    });
+			navigator.serviceWorker
+             .register('./service-worker.js')
+             .then(function() { console.log('Service Worker Registered'); });
 	  });
 	}
 	</script>

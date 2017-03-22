@@ -15,16 +15,41 @@ AuctionApp.controller('listAuctionController', ['$scope', '$http', '$routeParams
   $scope.dataPage = {};
   $scope.auctionItems = [];
   $scope.totalPage = [];
-  // var urlServer = $scope.getBaseUrl() + '/backend/api/example/';
-  $scope.loading_list = true;
   var urlServer = $scope.getBaseUrl() + '/backendFrame/public/api/v1/get-auction-list/';
-  $http.get( urlServer + $scope.sortBy + '/' + $scope.curPage).then(function(response) {
-    console.log(response.data);
-    $scope.auctionItems = response.data.data_response.data;
-    $scope.dataPage = response.data.data_response;
-    $scope.loading_list = false;
-    $scope.generatePage(response.data.data_response.last_page);
-  });
+  var online = navigator.onLine;
+  if ('caches' in window) {
+    var url = urlServer + $scope.sortBy + '/' + $scope.curPage;
+        caches.match(url).then(function(response) {
+          console.log(response);
+          if (response) {
+            response.json().then(function(json) {
+              if (online) {
+                  $scope.getNewData();
+              } else {
+                var results = json;
+                $scope.auctionItems = results.data_response.data;
+                $scope.dataPage = results.data_response;
+                $scope.loading_list = false;
+                $scope.generatePage(results.data_response.last_page);
+              }
+            });
+          } else {
+            $scope.getNewData();
+          }
+        });
+  } else {
+    $scope.getNewData();
+  }
+  $scope.getNewData = function() {
+    $http.get( urlServer + $scope.sortBy + '/' + $scope.curPage).then(function(response) {
+      console.log(response.data);
+      $scope.auctionItems = response.data.data_response.data;
+      $scope.dataPage = response.data.data_response;
+      $scope.loading_list = false;
+      $scope.generatePage(response.data.data_response.last_page);
+    });
+  }
+
 
   $scope.generatePage = function(totalpage) {
     for (var i = 1; i < totalpage+1; i++) {
