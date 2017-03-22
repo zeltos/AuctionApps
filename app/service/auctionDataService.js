@@ -6,6 +6,7 @@ AuctionApp.service('auctionDataService',  function($http, $rootScope) {
     var url = urlServer + 'get-auction/' + uniqueKey;
     if ('caches' in window) {
       caches.match(url).then(function(response) {
+        if (response) {
           response.json().then(function(json) {
             if (!online) {
               var results = json;
@@ -16,6 +17,11 @@ AuctionApp.service('auctionDataService',  function($http, $rootScope) {
               });
             }
           });
+        } else {
+          $http.get( urlServer + 'get-auction/' + uniqueKey).then(function(response) {
+            callback(response.data);
+          });
+        }
       });
     } else {
       $http.get( urlServer + 'get-auction/' + uniqueKey).then(function(response) {
