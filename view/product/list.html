@@ -33,6 +33,7 @@
 		<div class="progress" ng-show="loading_list">
 			 <div class="indeterminate"></div>
 		</div>
+		<p align="center" class="no-item cover" ng-show="!loading_list" ng-if="auctionItems.length < 1">No Auction list to show</p>
 		<div class="row">
 			<div class="col s12 l4" ng-repeat="aItem in auctionItems">
 				 <div class="card catalog-card {{ aItem.status }}">

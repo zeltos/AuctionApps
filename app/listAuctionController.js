@@ -17,6 +17,7 @@ AuctionApp.controller('listAuctionController', ['$scope', '$http', '$routeParams
   $scope.totalPage = [];
   var urlServer = $scope.getBaseUrl() + '/backendFrame/public/api/v1/get-auction-list/';
   var online = navigator.onLine;
+  $scope.loading_list = true;
   if ('caches' in window) {
     var url = urlServer + $scope.sortBy + '/' + $scope.curPage;
         caches.match(url).then(function(response) {

@@ -14,7 +14,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
 
     setTimeout(function () {
         loadCarousel();
-    }, 500);
+    }, 100);
   }, $routeParams.uniqueKey)
 
   $rootScope.wasBid = false;
@@ -69,6 +69,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   $scope.formBidData = {};
   // $scope.formBidData.bid_value = 0;
   $scope.bidError = false;
+  $scope.success_modal = false;
   $scope.submitBidTrigger = function() {
     $scope.load_submidbid = true;
     var dataAuth =  JSON.parse(localStorage.getItem("auth"));
@@ -96,6 +97,10 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
         $rootScope.getDominated();
         $scope.bidMessage = data.response.message;
         $scope.load_submidbid = false;
+        $scope.success_modal = true;
+        setTimeout(function () {
+          jQuery('#modal-success').modal('open');
+        }, 50);
       }
       $scope.formBidData = {};
     }, $scope.formBidData, dataAuth.userData[0], $scope.auctionData.auction_id );

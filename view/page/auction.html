@@ -17,8 +17,6 @@
         </div>
       </div>
       <script type="text/javascript">
-
-
       function loadCarousel() {
         jQuery("img.lazy").lazyload({
   				effect : "fadeIn"
@@ -109,6 +107,9 @@
                 }
                 jQuery(document).ready(function($) {
                   $('#modal-agreement').modal();
+                  $('#modal-success').modal({
+                    endingTop: '30%',
+                  });
                   $("#trigger-agreement").click(function(event) {
                     if (!$('#agreement-check').is(':checked')) {
                        $('#modal-agreement').modal('open');
@@ -138,5 +139,16 @@
           </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="modal-success" class="modal small">
+  <div class="modal-content">
+    <h4 align="center"><i class="material-icons">done</i> Succsess Bid!</h4>
+    <span class="sptr"></span>
+    <p>Thank you for your participation on auction Brandoutlet. you has just success submit bid : <b>{{ auctionData.auction_current_bidding  | currency:"IDR ":0  }}</b> on <b>{{ auctionData.auction_name }}</b></p>
+  </div>
+  <div class="modal-footer">
+    <a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="successBid()">OK, Got it!</a>
   </div>
 </div>
