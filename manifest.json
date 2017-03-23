@@ -19,6 +19,5 @@
     }
   ],
   "start_url": "./",
-  "display": "fullscreen",
-  "orientation": "portrait"
+  "display": "standalone"
 }
