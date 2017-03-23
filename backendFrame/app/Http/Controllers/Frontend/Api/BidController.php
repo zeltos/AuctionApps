@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mail;
 
 class BidController extends Controller
 {
@@ -15,7 +16,7 @@ class BidController extends Controller
       $bid_value     = $request->input('bid_value');
       $firststbid    = false;
       $checkfirststbid = DB::table('auction_bid')->select('auction_id')->where('user_id', $user_id)->where('auction_id',$auction_id)->get();
-      if (count($check1stbid) == 0 ) {
+      if (count($checkfirststbid) == 0 ) {
         $firststbid = true;
       }
 
@@ -61,14 +62,20 @@ class BidController extends Controller
               'bid_value'         => $bid_value,
               'auction_name'      => $nameAuction,
               'auction_end_date'  => $EndDate,
-              'termcond'          => $termcond
+              'termcond'          => $termcond,
+              'email'             => $emailUser
             );
 
             $subject ='Thank you for your new bidding on Auction :'.$nameAuction;
 
-            Mail::send('emails.newbid', $data, function($message) use ($emailUser, $nameUser){
-                $message->to($emailUser, $nameUser)->subject($subject);
-            });
+            try {
+              Mail::send('emails.newbid', $data, function($message) use ($emailUser, $nameUser){
+                  $message->to($emailUser, $nameUser)->subject($subject);
+              });
+            } catch (Exception $e) {
+              echo $e->getMessage();
+            }
+
           }
 
         } else {
