@@ -66,15 +66,10 @@ class BidController extends Controller
               'email'             => $emailUser
             );
 
-            $subject ='Thank you for your new bidding on Auction :'.$nameAuction;
-
-            try {
-              Mail::send('emails.newbid', $data, function($message) use ($emailUser, $nameUser){
+              $subject ='Thank you for your new bidding on Auction : '.$nameAuction;
+              Mail::send('emails.newbid', $data, function($message) use ($emailUser, $nameUser,$subject){
                   $message->to($emailUser, $nameUser)->subject($subject);
               });
-            } catch (Exception $e) {
-              echo $e->getMessage();
-            }
 
           }
 

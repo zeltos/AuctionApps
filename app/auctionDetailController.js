@@ -36,7 +36,6 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
 
   var urlServer = $rootScope.baseUrlApi;
   $scope.load_dominated = true;
-  $scope.load_submidbid = false;
   $rootScope.getDominated = function() {
       var auth =  JSON.parse(localStorage.getItem("auth"));
       var user_id = '';
@@ -70,8 +69,8 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
   // $scope.formBidData.bid_value = 0;
   $scope.bidError = false;
   $scope.success_modal = false;
+  $scope.load_submidbid = false;
   $scope.submitBidTrigger = function() {
-    $scope.load_submidbid = true;
     var dataAuth =  JSON.parse(localStorage.getItem("auth"));
     if (!dataAuth) {
        alert('you need to login to submit a bid!');
@@ -90,6 +89,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
       alert('you just dominated this auction!');
       return;
     }
+    $scope.load_submidbid = true;
     console.log($scope.formBidData);
     bidingService.submitBid(function(data) {
       var status = data.response.status;

@@ -79,7 +79,7 @@
             <form name="bidForm" ng-submit="submitBidTrigger(bidForm.$valid)">
             <div class="row">
               <div class="input-field col l6 s12">
-                <input id="bid_val" type="text" class="validate" required="" ng-model="formBidData.bid_value" value="formBidData.bid_value|currency">
+                <input id="bid_val" type="text" class="validate" required="" ng-disabled="" ng-model="formBidData.bid_value" value="formBidData.bid_value|currency">
                 <script type="text/javascript">
                   jQuery(document).ready(function($) {
                     // $("#bid_val").maskMoney({prefix:'IDR ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
@@ -88,10 +88,10 @@
                 <label class="active" for="bid_val">Let's deal Your bid</label>
               </div>
               <div class="input-field col l6 s12">
-                <button class="waves-effect waves-light btn-large" style="width:100%;" ><i class="material-icons left">pan_tool</i>Submit Your Bid!</button>
+                <button class="waves-effect waves-light btn-large" style="width:100%;" ng-disabled="load_submidbid" ><i class="material-icons left">pan_tool</i>Submit Your Bid!</button>
               </div>
               <div class="col l12">
-                <div class="progress" ng-if="load_submitbid">
+                <div class="progress" ng-if="load_submidbid">
                    <div class="indeterminate"></div>
                </div>
               </div>
@@ -108,7 +108,7 @@
                 jQuery(document).ready(function($) {
                   $('#modal-agreement').modal();
                   $('#modal-success').modal({
-                    endingTop: '30%',
+                    endingTop: '25%',
                   });
                   $("#trigger-agreement").click(function(event) {
                     if (!$('#agreement-check').is(':checked')) {
