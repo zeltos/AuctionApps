@@ -47,7 +47,7 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope
   $rootScope.getBaseUrl = function() {
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-    return baseUrl+'AuctionApps/';
+    return baseUrl+'/AuctionApps/';
   }
   $rootScope.getMediaUrl = function() {
     return $scope.getBaseUrl() + '/media/';
