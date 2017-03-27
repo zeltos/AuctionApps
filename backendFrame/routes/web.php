@@ -43,6 +43,19 @@ Route::get('/api/v1/user/activation/{key}','Frontend\Api\UserController@userActi
 
 
 // Backend Adminhtml
+Route::get('auction-admin/login', 'Admin\AdminController@showLogin');
+Route::get('auction-admin/home', 'Admin\AdminController@getHome');
+
+Route::get('auction-admin/auction/config', 'Admin\AuctionController@index');
+Route::get('auction-admin/auction/config/{auction_id}/edit', 'Admin\AuctionController@showEdit');
+
+Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
+Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');
+
+Route::post('/image/post/', 'Admin\imageController@post');
+Route::get('/image/get/', 'Admin\imageController@get');
+
+
 Route::get('/welcome', function () {
     return 'welcome';
 });
