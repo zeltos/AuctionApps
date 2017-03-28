@@ -124,6 +124,7 @@ class AuctionController extends Controller
           $result = array(
             'auction_current_bidding' => $bid_value,
             'dominated'               => $isDominated,
+            'user_id_dominated'       => $userDominated,
             'was_bid'                 => $wasBid
           );
         } else {

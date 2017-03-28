@@ -1,6 +1,6 @@
 AuctionApp.controller('auctionDetailController',
-['$scope', '$http','$rootScope', '$routeParams','bidingService', 'auctionDataService',
-function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataService) {
+['$scope', '$http','$rootScope', '$routeParams','bidingService', 'auctionDataService', 'socket',
+function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataService, socket) {
   $scope.image_gallery = [];
   auctionDataService.getDetailAuction(function(data) {
     $scope.auctionData = data.data_response[0];
@@ -46,6 +46,7 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
             $scope.dominated = response.data.dominated;
             $scope.auctionData.auction_current_bidding = response.data.auction_current_bidding;
             $rootScope.wasBid = response.data.was_bid;
+            socket.emit('afterBid', response.data);
             if($rootScope.wasBid) {
               $scope.formBidData.agreement_check = true;
             }
@@ -57,6 +58,20 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
           $scope.load_dominated = false;
       }
   }
+
+  socket.on('bcCurrentBid', function(data) {
+    var auth =  JSON.parse(localStorage.getItem("auth"));
+    var user_id = auth.userData[0].user_id;
+    $scope.$apply(function () {
+      $scope.auctionData.auction_current_bidding = data.current_bidding;
+      console.log(data.user_id_dominated+'vs'+user_id);
+      if (data.user_id_dominated == user_id) {
+        $scope.dominated = true;
+      } else {
+        $scope.dominated = false;
+      }
+    });
+  });
 
   // set auto update dominated
   // setInterval(function(){ $rootScope.getDominated() }, 1000);

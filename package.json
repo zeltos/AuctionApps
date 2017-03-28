@@ -1,0 +1,10 @@
+{
+  "name": "auction socket",
+  "version": "0.0.1",
+  "description": "socket for auction",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "express": "^4.15.2",
+    "socket.io": "^1.7.3"
+  }
+}
