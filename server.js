@@ -4,6 +4,16 @@ var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var cors = require('cors');
 
+
+const {ServiceWorker} = require('node-service-worker');
+
+const sw = new ServiceWorker({
+    scriptURL: '/service-worker.js',
+    scope: '/', // Primarily to resolve relative URLs
+    contents: 'console.log("hi");' // The JS of the service worker
+})
+
+
 app.use(cors());
 app.use(express.static(__dirname + '/'));
 
