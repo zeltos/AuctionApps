@@ -74,7 +74,7 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , 'socket', funct
 }]);
 
 AuctionApp.factory('socket', ['$rootScope', function($rootScope) {
-  var socket = io.connect('http://localhost:9991');
+  var socket = io.connect();
   return {
     on: function(eventName, callback){
       socket.on(eventName, callback);
