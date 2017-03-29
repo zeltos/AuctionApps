@@ -69,6 +69,16 @@ function($scope, $http, $rootScope, $routeParams, bidingService, auctionDataServ
         $scope.dominated = true;
       } else {
         $scope.dominated = false;
+        var title = 'Notification bid from BO Auction';
+        var options = {
+          body: 'Someone just dominated this auction, lets make your bid!!',
+          icon: 'media/frontend/images/logo-gram-bo-96.png',
+          badge: 'media/frontend/images/logo-gram-bo-96.png'
+        };
+
+        navigator.serviceWorker.ready.then(function(registration) {
+          registration.showNotification(title, options);
+        });
       }
     });
   });
