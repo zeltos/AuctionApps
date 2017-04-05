@@ -4,7 +4,7 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /newAuction/backendFrame/public/
+    RewriteBase /backendFrame/public/
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d

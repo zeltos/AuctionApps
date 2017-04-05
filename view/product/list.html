@@ -24,7 +24,7 @@
 		//  $('.material-select').material_select();
 		 $('.material-select').change(function(event) {
 			 var selectValue = $('.material-select option:selected').val();
-			 window.location.href='#!/auction-list/' + selectValue;
+			 window.location.href='/auction-list/' + selectValue;
 		 });
 	 });
 	</script>
@@ -51,7 +51,7 @@
 								  <p class="small-desc">{{ aItem.auction_short_description }}</p>
 		            </div>
 		            <div class="card-action" align="center" style="padding:15px 0;">
-		              <a href="#!/auction/{{  aItem.auction_unique_key }}" class="btn" >View Detail!</a>
+		              <a href="/auction/{{  aItem.auction_unique_key }}" class="btn" >View Detail!</a>
 		            </div>
 		          </div>
 			</div>
@@ -59,8 +59,8 @@
 	</div>
   <br>
   <ul class="pagination center-align" ng-if="totalPage.length > 1">
-    <li ng-class="{'disabled': dataPage.prev_page_url == null}" class="waves-effect"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+    <li ng-class="{'disabled': dataPage.prev_page_url == null}" class="waves-effect"><a><i class="material-icons">chevron_left</i></a></li>
     <li class="waves-effect" ng-repeat="p in totalPage"><a href="{{p.link}}">{{p.page}}</a></li>
-    <li ng-class="{'disabled': dataPage.prev_page_url == null}" class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    <li ng-class="{'disabled': dataPage.prev_page_url == null}" class="waves-effect"><a><i class="material-icons">chevron_right</i></a></li>
   </ul>
 </div>

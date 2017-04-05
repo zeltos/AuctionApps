@@ -40,6 +40,8 @@ AuctionApp.config(function($routeProvider, $locationProvider) {
         templateUrl: "view/page/404.html"
     });
     // $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
 });
 
 AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope, $rootScope){
