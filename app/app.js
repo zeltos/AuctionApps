@@ -48,13 +48,14 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope
   // Get Base Url
   $rootScope.getBaseUrl = function() {
     var getUrl = window.location;
-    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/";
     return baseUrl;
   }
   $rootScope.getMediaUrl = function() {
     return $scope.getBaseUrl() + '/media/';
   }
-  $rootScope.baseUrlApi = $rootScope.getBaseUrl()+'/backendFrame/public/api/v1/';
+  $rootScope.baseUrlApi = $rootScope.getBaseUrl()+'backendFrame/public/api/v1/';
+  console.log($rootScope.baseUrlApi);
   $rootScope.closeModal = function(modal) {
     jQuery('#'+modal).modal('close');
   }
