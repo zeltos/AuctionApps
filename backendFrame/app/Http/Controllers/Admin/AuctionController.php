@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-
+use View;
 class AuctionController extends Controller
 {
     //
@@ -23,9 +23,21 @@ class AuctionController extends Controller
       $detailAuctionQ = DB::table('auctions')
                  ->select('*')
                  ->where('auction_id', $auction_id)
-                 ->get();            
-      $data = json_decode( $detailAuctionQ, true );
-      $result = $data[0];
-      return view('admin/auction/edit', $result);
+                 ->first();
+      $imageGallery = DB::table('auction_image as ai')->select('ai.auction_id','i.*')
+                      ->join('images as i','ai.images_id','=','i.images_id')
+                      ->where('auction_id',$auction_id)
+                      ->get();
+
+
+      $result = array();
+      $result['data_auction'] = $detailAuctionQ;
+      $result['image_gallery'] = $imageGallery;
+      return View::make('admin/auction/edit')->with('result', $result);
+      // return $result;
+    }
+
+    public function saveEdit(Request $request) {
+      return $request->all();
     }
 }

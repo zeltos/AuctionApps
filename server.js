@@ -10,8 +10,13 @@ const {ServiceWorker} = require('node-service-worker');
 const sw = new ServiceWorker({
     scriptURL: '/service-worker.js',
     scope: '/', // Primarily to resolve relative URLs
-    contents: 'console.log("hi");' // The JS of the service worker
-})
+    contents: 'console.log("hi");', // The JS of the service worker
+    importScript: function(url) {
+
+        return fs.readFileSync(path.join(__dirname, url));
+
+    }
+});
 
 
 app.use(cors());

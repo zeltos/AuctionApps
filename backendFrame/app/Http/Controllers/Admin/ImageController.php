@@ -22,7 +22,7 @@ class ImageController extends Controller
           if (!file_exists($destinationPath.'/'.$name)) {
             Input::file('file')->move($destinationPath, $name);
             $insertImage = DB::table('images')->insert([
-                            "id"   => "",
+                            "images_id"   => "",
                             "images" => "$name"
                           ]);
           }
@@ -34,8 +34,17 @@ class ImageController extends Controller
       }
     }
 
-    public function get() {
-      $getImage = DB::table('images')->select('*')->get();
-      return $getImage;
+    public function get($image = null) {
+      if ($image == null) {
+        $getImage = DB::table('images')->select('*')->get();
+        return $getImage;
+      } else {
+        $getImage = DB::table('images')->select('*')->where('images', $image)->get();
+        return $getImage;
+      }
+    }
+
+    public function delete() {
+      
     }
 }

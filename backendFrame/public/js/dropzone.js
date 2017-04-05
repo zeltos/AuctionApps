@@ -298,7 +298,7 @@
         var name = file.name;
                 $.ajax({
                     type: 'POST',
-                    url: 'page/proses/delete-file.php',
+                    url: '?',
                     data: "id="+name,
                     dataType: 'html'
                 });

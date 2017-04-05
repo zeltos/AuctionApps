@@ -8,11 +8,11 @@
     <div class="col s12 l5">
       <div class="media-auction cover">
         <div class="media-auction-preview">
-          <img class="lazy" data-original="{{ getMediaUrl() }}catalog/{{ auctionData.image }}"alt="">
+          <img class="lazy" data-original="{{ getMediaUrl() }}catalog/{{ auctionData.images }}"alt="">
         </div>
         <div class="media-auction-list cover">
            <div class="owl-carousel" id="image_gallery">
-              <div class="item" ng-repeat="item in image_gallery"><img style="width:100%;" onClick="clickImg(this)" class="media-list-img" src="{{ getMediaUrl() }}catalog/{{ item.image}}" alt=""></div>
+              <div class="item" ng-repeat="item in image_gallery"><img style="width:100%;" onClick="clickImg(this)" class="media-list-img" src="{{ getMediaUrl() }}catalog/{{ item.images}}" alt=""></div>
           </div>
         </div>
       </div>

@@ -20,22 +20,24 @@ class AuctionController extends Controller
       }
       if ($status == 'all') {
         $dataAuction = DB::table('auctions as a')
-                          ->select('a.*', 'i.image', 'b.bid_value as auction_current_bidding')
-                          ->join('auction_bid as b', 'a.auction_id','=','b.auction_id')
-                          ->join('auction_image as i', 'a.auction_id','=','i.auction_id')
-                          ->whereRaw('b.auction_id = a.auction_id
-                                            and i.auction_id = a.auction_id
-                                            and b.created_at = (select max(created_at) from auction_bid where auction_id = a.auction_id)')
-                          ->groupBy('a.auction_id')->paginate(6);
+                        ->select('a.*', 'ai.images_id', 'b.bid_value as auction_current_bidding', 'i.images')
+                        ->join('auction_bid as b', 'a.auction_id','=','b.auction_id')
+                        ->join('auction_image as ai', 'a.auction_id','=','ai.auction_id')
+                        ->join('images as i', 'ai.images_id','=','i.images_id')
+                        ->whereRaw('b.auction_id = a.auction_id
+                                          and ai.auction_id = a.auction_id
+                                          and b.created_at = (select max(created_at) from auction_bid where auction_id = a.auction_id)')
+                        ->groupBy('a.auction_id')->paginate(6);
 
       } else {
         $dataAuction = DB::table('auctions as a')
-                          ->select('a.*', 'i.image', 'b.bid_value as auction_current_bidding')
+                          ->select('a.*', 'ai.images_id', 'b.bid_value as auction_current_bidding', 'i.images')
                           ->join('auction_bid as b', 'a.auction_id','=','b.auction_id')
-                          ->join('auction_image as i', 'a.auction_id','=','i.auction_id')
+                          ->join('auction_image as ai', 'a.auction_id','=','ai.auction_id')
+                          ->join('images as i', 'ai.images_id','=','i.images_id')
                           ->where('status',$status)
                           ->whereRaw('b.auction_id = a.auction_id
-                                            and i.auction_id = a.auction_id
+                                            and ai.auction_id = a.auction_id
                                             and b.created_at = (select max(created_at) from auction_bid where auction_id = a.auction_id)')
                           ->groupBy('a.auction_id')->paginate(6);
       }
@@ -51,14 +53,24 @@ class AuctionController extends Controller
 
     public function getDetailAuction($key) {
       $dataAuction = DB::table('auctions as a')
-                        ->select('a.*', 'i.image', 'b.bid_value as auction_current_bidding')
+                        ->select('a.*', 'ai.images_id', 'b.bid_value as auction_current_bidding', 'i.images')
                         ->join('auction_bid as b', 'a.auction_id','=','b.auction_id')
-                        ->join('auction_image as i', 'a.auction_id','=','i.auction_id')
+                        ->join('auction_image as ai', 'a.auction_id','=','ai.auction_id')
+                        ->join('images as i', 'ai.images_id','=','i.images_id')
                         ->where('a.auction_unique_key', $key)
                         ->whereRaw('b.auction_id = a.auction_id
-                                          and i.auction_id = a.auction_id
+                                          and ai.auction_id = a.auction_id
                                           and b.created_at = (select max(created_at) from auction_bid where auction_id = a.auction_id)')
                         ->groupBy('a.auction_id')->get();
+      // $dataAuction = DB::table('auctions as a')
+      //                   ->select('a.*', 'i.image', 'b.bid_value as auction_current_bidding')
+      //                   ->join('auction_bid as b', 'a.auction_id','=','b.auction_id')
+      //                   ->join('auction_image as i', 'a.auction_id','=','i.auction_id')
+      //                   ->where('a.auction_unique_key', $key)
+      //                   ->whereRaw('b.auction_id = a.auction_id
+      //                                     and i.auction_id = a.auction_id
+      //                                     and b.created_at = (select max(created_at) from auction_bid where auction_id = a.auction_id)')
+      //                   ->groupBy('a.auction_id')->get();
       $datas = json_decode($dataAuction, true);
       $auction_id = $datas[0]['auction_id'];
       $auctionArray = $datas[0];
@@ -79,7 +91,7 @@ class AuctionController extends Controller
         }
       }
 
-      $image_gallery = DB::table('auction_image')->select('image')->where('auction_id',$auction_id)->get();
+      $image_gallery = DB::table('auction_image as ai')->select('images')->join('images as i', 'ai.images_id','=','i.images_id')->where('auction_id',$auction_id)->get();
 
       $result = array();
         $result['image_gallery']= $image_gallery;

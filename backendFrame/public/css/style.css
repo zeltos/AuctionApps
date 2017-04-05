@@ -74,3 +74,40 @@ float: left;
 .gallery-wrap a {
   cursor: pointer;
 }
+
+.hasInserted {
+  opacity: .5;
+  pointer-events: none;
+}
+
+.gallery-item {
+  margin-bottom: 5px;
+  padding: 5px !important;
+  height: 92px;
+  overflow: hidden;
+}
+.item-image {
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+.img-data {
+  position: relative;
+}
+.img-data a {
+  display: block;
+}
+.deleteImg {
+  position: absolute;
+  z-index: 99;
+  top: 3px;
+  left: 15px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+  color:#FFF;
+  padding: 3px;
+  border-radius: 3px;
+}
+.deleteImg i {
+  font-size: 16px;
+}

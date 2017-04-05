@@ -16,7 +16,7 @@
     </div>
 
     <div id="content-upload" style="display:none;">
-      <form action="{{ url('/image/post/') }}" class="dropzone" id="my-dropzone"></form>
+      <form action="{{ url('/image/post/') }}" class="dropzone" id="my-dropzone">{{ csrf_field() }}</form>
       <div class="grid-cover" style="margin-bottom:30px;">
         <a class="waves-effect waves-light btn" id="submitFile" style="display:none;"><i class="material-icons left">cloud</i>Upload File</a>
       </div>
@@ -44,6 +44,8 @@ jQuery(document).ready(function($){
          this.on("success", function(file) {
              setTimeout(function () {
               _this.removeFile(file);
+              console.log(file.name);
+              getImageWasAdd(file.name)
               $('#open-media').trigger('click');
             }, 1500);
          });
@@ -64,6 +66,21 @@ jQuery(document).ready(function($){
     getListImage();
   })
 
+  function getImageWasAdd(file) {
+    var url = '<?php echo url('/image/get/'); ?>';
+    var urlImages ='<?php echo URL::asset('/images/'); ?>';
+    $.get(url+'/'+file, function( data ) {
+      console.log(data);
+      for (var i = 0; i < data.length; i++) {
+        $('.gallery-wrap').append("<div class='img-data col l3'><a onClick='addToGallery("+data[i].images_id+")' class=' item-image' dataid='"+ data[i].images_id +"' id='image_id-"+ data[i].images_id +"'><img src='"+urlImages+"/"+data[i].images +"'></a><span class='deleteImg' title='delete this image' onclick='deleteFile("+data[i].images_id+")'><i class='material-icons'>delete</i></span></div>");
+      }
+    });
+  }
+
+  function deleteFile(id){
+    console.log(id);
+  }
+
   function getListImage() {
     var url = '<?php echo url('/image/get'); ?>';
     var urlImages ='<?php echo URL::asset('/images/'); ?>';
@@ -71,13 +88,31 @@ jQuery(document).ready(function($){
       console.log(data);
       for (var i = 0; i < data.length; i++) {
         console.log(data[i]);
-        $('.gallery-wrap').append("<a onClick='addToGallery("+data[i].id +", "+ data[i].images+")' class='col l3 item-image' id='image_id-"+ data[i].id +"'><img src='"+urlImages+"/"+data[i].images +"'></a>");
+        $('.gallery-wrap').append("<div class='img-data col l3'><a onClick='addToGallery("+data[i].images_id+")' class=' item-image' dataid='"+ data[i].images_id +"' id='image_id-"+ data[i].images_id +"'><img src='"+urlImages+"/"+data[i].images +"'></a><span class='deleteImg' title='delete this image' onclick='deleteFile("+data[i].images_id+")'><i class='material-icons'>delete</i></span></div>");
       }
+      $('.gallery-item').each(function(index, el) {
+        var id_element = $(this).attr('image-id');
+        console.log(id_element);
+        $('#image_id-'+id_element).addClass('hasInserted');
+      });
     });
   }
 
-  function addToGallery(id, images) {
-    
+  function addToGallery(id) {
+    var allowtoInsert = false;
+    jQuery('.gallery-item').each(function(index, el) {
+      if ($(this).attr('image-id') == id) {
+        console.log('this image already inserted');
+      } else {
+        allowtoInsert = true;
+      }
+    });
+    if (allowtoInsert == true) {
+        var image = $('#image_id-'+id).find('img').attr('src');
+        $('#image_id-'+id).addClass('hasInserted');
+        $(".list-images-gallery").append("<div class='col l4 gallery-item' image-id='"+id+"'><input type='hidden' name='images_id[]' value='"+id+"'>  <img src='"+image+"' style='width:100%;'></div>");
+        console.log(image);
+    }
   }
 
 </script>

@@ -42,14 +42,14 @@ AuctionApp.config(function($routeProvider, $locationProvider) {
     // $locationProvider.html5Mode(true);
 });
 
-AuctionApp.controller('appController', ['$scope', '$rootScope' , 'socket', function($scope, $rootScope, socket){
+AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope, $rootScope){
   // Get Base Url
   $rootScope.getBaseUrl = function() {
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
     // return baseUrl+'/AuctionApps';
-    // return baseUrl;
-    return 'http://localhost/newAuction';
+    return baseUrl;
+    // return 'http://localhost/newAuction';
   }
   $rootScope.getMediaUrl = function() {
     return $scope.getBaseUrl() + '/media/';
@@ -59,28 +59,4 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , 'socket', funct
     jQuery('#'+modal).modal('close');
   }
 
-  $scope.testEmit = function() {
-    console.log('test');
-    socket.emit('pushEmit', 'data test to server');
-  }
-
-  $scope.testEmit();
-  socket.on('getEmit', function(data) {
-    $scope.$apply(function () {
-      console.log(data.message);
-    });
-  });
-
-}]);
-
-AuctionApp.factory('socket', ['$rootScope', function($rootScope) {
-  var socket = io.connect();
-  return {
-    on: function(eventName, callback){
-      socket.on(eventName, callback);
-    },
-    emit: function(eventName, data) {
-      socket.emit(eventName, data);
-    }
-  };
 }]);

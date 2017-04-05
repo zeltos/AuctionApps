@@ -44,6 +44,7 @@ AuctionApp.controller('listAuctionController', ['$scope', '$http', '$routeParams
 
 
   $scope.getNewData = function() {
+    console.log('aww');
     $http.get( urlServer + $scope.sortBy + '/' + $scope.curPage).then(function(response) {
       console.log(response.data);
       $scope.auctionItems = response.data.data_response.data;

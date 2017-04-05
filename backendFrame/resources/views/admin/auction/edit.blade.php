@@ -1,6 +1,6 @@
 @extends('admin.layouts.app-dashboard')
 
-@section('title-page', $auction_name.' - edit')
+@section('title-page', $result['data_auction']->auction_name.' - edit')
 @section('title', 'Auction edit')
 @section('embed-css')
   @parent
@@ -12,18 +12,19 @@
 @section('content')
   <div class="content-container">
     <div class="row">
-      <form class="col s12">
+      <form class="col s12" action="{{ url('/auction-admin/auction/config/'.$result['data_auction']->auction_id.'/edit/save') }}" method="post">
+        {{ csrf_field() }}
         <div class="col l8">
           <div class="row">
             <div class="input-field col l6">
-              <input required name="auction_name" id="auction_name" type="text" class="validate" value="{{ $auction_name }}">
+              <input required name="auction_name" id="auction_name" type="text" class="validate" value="{{  $result['data_auction']->auction_name }}">
               <label for="auction_name">Auction Name</label>
             </div>
             <div class="input-field col l6">
-              <select id="status-select">
-                <option value="live" {{ $status === 'live' ? 'selected' : '' }}>Live</option>
-                <option value="cooming" {{ $status === 'cooming' ? 'selected' : '' }}>Cooming Soon</option>
-                <option value="closed" {{ $status === 'closed' ? 'selected' : '' }}>Closed</option>
+              <select id="status-select" name="status">
+                <option value="live" {{ $result['data_auction']->status === 'live' ? 'selected' : '' }}>Live</option>
+                <option value="cooming" {{ $result['data_auction']->status === 'cooming' ? 'selected' : '' }}>Cooming Soon</option>
+                <option value="closed" {{ $result['data_auction']->status === 'closed' ? 'selected' : '' }}>Closed</option>
               </select>
               <label>Status Auction</label>
               <script type="text/javascript">
@@ -35,7 +36,7 @@
           </div>
           <div class="row">
             <div class="input-field col l6">
-              <input required name="start_date" id="start_date" type="date" class="validate" value="{{ $auction_start_date }}">
+              <input required name="start_date" id="start_date" type="date" class="validate" value="{{ $result['data_auction']->auction_start_date }}">
               <label for="start_date">Start Date</label>
               <script type="text/javascript">
               $('#start_date').pickadate({
@@ -45,7 +46,7 @@
               </script>
             </div>
             <div class="input-field col l6">
-              <input required name="end_date" id="end_date" type="date" class="validate" value="{{ $auction_end_date }}">
+              <input required name="end_date" id="end_date" type="date" class="validate" value="{{ $result['data_auction']->auction_end_date }}">
               <label for="end_date">End Date</label>
               <script type="text/javascript">
                 $('#end_date').pickadate({
@@ -54,34 +55,34 @@
               </script>
             </div>
             <div class="input-field col l6">
-              <input required name="start_bid" id="start_bid" type="text" class="validate" value="{{ $auction_start_bidding }}">
+              <input required name="start_bid" id="start_bid" type="text" class="validate" value="{{ $result['data_auction']->auction_start_bidding }}">
               <label for="start_bid">Auction Start Bidding</label>
             </div>
             <div class="input-field col l6">
-              <input required name="max_bid" id="max_bid" type="text" class="validate" value="{{ $auction_max_bid }}">
+              <input required name="max_bid" id="max_bid" type="text" class="validate" value="{{ $result['data_auction']->auction_max_bid }}">
               <label for="max_bid">Auction Max Bid</label>
             </div>
             <div class="file-field input-field col l6">
               <div class="btn">
                 <span>File</span>
-                <input type="file" value="{{ $auction_logo }}">
+                <input type="file" value="{{ $result['data_auction']->auction_logo }}" name="logo">
               </div>
               <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Auction Logo" value="{{ $auction_logo }}">
+                <input class="file-path validate" type="text" placeholder="Auction Logo" value="{{ $result['data_auction']->auction_logo }}">
               </div>
             </div>
           </div>
           <div class="col l12">
             <label for="short_description">Short Description</label>
-            <textarea id="short_description" name="short_desc" class="materialize-textarea" data-length="120" placeholder="Short description of your auction">{{ $auction_short_description }}</textarea>
+            <textarea id="short_description" name="short_desc" class="materialize-textarea" data-length="120" placeholder="Short description of your auction">{{ $result['data_auction']->auction_short_description }}</textarea>
           </div>
           <div class="col l12">
             <label for="description">Description</label>
-            <textarea id="description" name="description" class="materialize-textarea" placeholder="Detail description of your auction">{{ $auction_description }}</textarea>
+            <textarea id="description" name="description" class="materialize-textarea" placeholder="Detail description of your auction">{{ $result['data_auction']->auction_description }}</textarea>
           </div>
           <div class="col l12">
             <label for="term_cond">Term & Condition</label>
-            <textarea id="term_cond" name="term_cond" class="materialize-textarea" placeholder="Term and Conditon of this auction">{{ $auction_term_condition }}</textarea>
+            <textarea id="term_cond" name="term_cond" class="materialize-textarea" placeholder="Term and Conditon of this auction">{{ $result['data_auction']->auction_term_condition }}</textarea>
           </div>
           <div class="col l12">
             <br>
@@ -93,8 +94,14 @@
           <span class="sptr"></span>
           <a href="#gallery-modal" class="waves-effect waves-light btn-large grey darken-4 cover"><i class="material-icons left">library_add</i>Add Image from gallery</a>
           <hr>
-          <div class="list-images-gallery">
-
+          <div class="list-images-gallery row">
+            @foreach ($result['image_gallery'] as $image)
+              <div class="col l4 gallery-item" image-id="{{$image->images_id }}">
+                <input type="hidden" name="images_id[]" value="{{$image->images_id }}">
+                {{-- <input type="hidden" name="images[{{$image->images_id }}][images]" value="{{$image->images}}"> --}}
+                <img src="{{URL::asset('/images/')}}/{{$image->images}}" style="width:100%;">
+              </div>
+            @endforeach
           </div>
         </div>
       </form>

@@ -1,4 +1,4 @@
-@if(!Auth::check())
+@if(!Auth::check() )
   <script type="text/javascript">
     window.location = "{ url('/auction-admin/login') }";//here double curly bracket
 </script>

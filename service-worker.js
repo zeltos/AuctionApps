@@ -1,15 +1,16 @@
 var cacheName = 'Auction-v2';
 var filesToCache = [
   'index.html',
+  // 'server.js',
   '/',
   './app/app.js',
   './app/listAuctionController.js',
   './app/auctionDetailController.js',
   './app/service/auctionDataService.js',
   './media/frontend/images/auction_logo_white.png',
-  // './media/frontend/',
-  // './media/catalog/',
-  // './view/',
+  './media/frontend/',
+  './media/catalog/',
+  './view/',
   './lib/css/materialize.min.css',
   './lib/css/owl.carousel.min.css',
   './lib/css/jquery.countdown.css',
@@ -47,8 +48,7 @@ self.addEventListener('install', function(e) {
 self.addEventListener('fetch', function(e) {
   // console.log('[Service Worker] Fetch', e.request.url);
   var dataUrl = '/backendFrame/public/api/v1/';
-  var dataUrl2 = '/view/';
-  if (e.request.url.indexOf(dataUrl) > -1 || e.request.url.indexOf(dataUrl2)) {
+  if (e.request.url.indexOf(dataUrl) > -1) {
     /*
      * When the request URL contains dataUrl, the app is asking for fresh
      * weather data. In this case, the service worker always goes to the
@@ -59,7 +59,7 @@ self.addEventListener('fetch', function(e) {
     e.respondWith(
       caches.open(dataCacheName).then(function(cache) {
         return fetch(e.request).then(function(response){
-          console.log('url to cache =' + e.request.url);
+          // console.log('url to cache =' + e.request.url);
           cache.put(e.request.url, response.clone());
           return response;
         });
