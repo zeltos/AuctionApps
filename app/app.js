@@ -47,16 +47,12 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope
   $rootScope.getBaseUrl = function() {
     var getUrl = window.location;
     var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-    // return baseUrl+'/AuctionApps';
-    console.log(baseUrl);
     return baseUrl;
-    // return 'http://localhost/newAuction';
   }
   $rootScope.getMediaUrl = function() {
     return $scope.getBaseUrl() + '/media/';
   }
   $rootScope.baseUrlApi = $rootScope.getBaseUrl()+'backendFrame/public/api/v1/';
-  console.log($rootScope.baseUrlApi);
   $rootScope.closeModal = function(modal) {
     jQuery('#'+modal).modal('close');
   }
