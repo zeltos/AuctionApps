@@ -56,6 +56,7 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope
     return $scope.getBaseUrl() + '/media/';
   }
   $rootScope.baseUrlApi = $rootScope.getBaseUrl()+'backendFrame/public/api/v1/';
+  console.log($rootScope.baseUrlApi);
   $rootScope.closeModal = function(modal) {
     jQuery('#'+modal).modal('close');
   }
