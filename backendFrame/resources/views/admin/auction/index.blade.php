@@ -13,7 +13,7 @@
   <div class="content-container">
     <div class="row">
       <div class="col l12">
-        <a class="waves-effect waves-light btn-large blue darken-1 text-white"><i class="material-icons right">gavel</i>Add New Auction</a>
+        <a href="{{ url('/auction-admin/auction/new')}}" class="waves-effect waves-light btn-large blue darken-1 text-white"><i class="material-icons right">gavel</i>Add New Auction</a>
         <span class="sptr"></span>
         <div class="cover">
           <table class="striped">

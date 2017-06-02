@@ -24,7 +24,7 @@
 
   </div>
   <div class="modal-footer">
-    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
   </div>
 </div>
 <script type="text/javascript">
@@ -78,7 +78,18 @@ jQuery(document).ready(function($){
   }
 
   function deleteFile(id){
-    console.log(id);
+    var isConfirm = confirm("are you sure to delete this file?");
+    if (!isConfirm) {
+      return;
+    }
+
+    var url = '<?php echo url('/image/delete'); ?>';
+    $.get(url + '/' + id, function(data){
+      console.log(data);
+      if (data=="success") {
+        $('#image_id-'+id).parent('.img-data').remove();
+      }
+    });
   }
 
   function getListImage() {
@@ -90,15 +101,23 @@ jQuery(document).ready(function($){
         console.log(data[i]);
         $('.gallery-wrap').append("<div class='img-data col l3'><a onClick='addToGallery("+data[i].images_id+")' class=' item-image' dataid='"+ data[i].images_id +"' id='image_id-"+ data[i].images_id +"'><img src='"+urlImages+"/"+data[i].images +"'></a><span class='deleteImg' title='delete this image' onclick='deleteFile("+data[i].images_id+")'><i class='material-icons'>delete</i></span></div>");
       }
-      $('.gallery-item').each(function(index, el) {
-        var id_element = $(this).attr('image-id');
-        console.log(id_element);
-        $('#image_id-'+id_element).addClass('hasInserted');
-      });
+      // function check has inserted
+      hasInserted();
+    });
+  }
+
+  function hasInserted() {
+    console.log('check has inserted');
+    $('.item-image').removeClass('hasInserted');
+    $('.gallery-item').each(function(index, el) {
+      var id_element = $(this).attr('image-id');
+      console.log(id_element);
+      $('#image_id-'+id_element).addClass('hasInserted');
     });
   }
 
   function addToGallery(id) {
+    console.log("add to Gallery");
     var allowtoInsert = false;
     jQuery('.gallery-item').each(function(index, el) {
       if ($(this).attr('image-id') == id) {
@@ -107,10 +126,13 @@ jQuery(document).ready(function($){
         allowtoInsert = true;
       }
     });
+    if ($('.gallery-item').length == 0) {
+      allowtoInsert = true;
+    }
     if (allowtoInsert == true) {
         var image = $('#image_id-'+id).find('img').attr('src');
         $('#image_id-'+id).addClass('hasInserted');
-        $(".list-images-gallery").append("<div class='col l4 gallery-item' image-id='"+id+"'><input type='hidden' name='images_id[]' value='"+id+"'>  <img src='"+image+"' style='width:100%;'></div>");
+        $(".list-images-gallery").append("<div class='col l6 gallery-item' image-id='"+id+"'><span class='deleteGallery' onclick='removeAuctionImage("+id+")'><i class='material-icons'>delete</i></span><input type='hidden' name='images_id[]' value='"+id+"'>  <img src='"+image+"' style='width:100%;'></div>");
         console.log(image);
     }
   }

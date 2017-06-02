@@ -46,6 +46,7 @@ Route::get('/api/v1/user/activation/{key}','Frontend\Api\UserController@userActi
 Route::get('auction-admin/login', 'Admin\AdminController@showLogin');
 Route::get('auction-admin/home', 'Admin\AdminController@getHome');
 
+Route::get('auction-admin/auction/new', 'Admin\AuctionController@newData');
 Route::get('auction-admin/auction/config', 'Admin\AuctionController@index');
 Route::get('auction-admin/auction/config/{auction_id}/edit', 'Admin\AuctionController@showEdit');
 Route::post('auction-admin/auction/config/{auction_id}/edit/save', 'Admin\AuctionController@saveEdit');
@@ -54,7 +55,7 @@ Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
 Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');
 
 Route::post('/image/post/', 'Admin\imageController@post');
-Route::get('/image/delete/', 'Admin\imageController@delete');
+Route::get('/image/delete/{id}', 'Admin\imageController@delete');
 Route::get('/image/get/{image?}', 'Admin\imageController@get');
 
 

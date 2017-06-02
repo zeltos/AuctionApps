@@ -12,8 +12,14 @@
 @section('content')
   <div class="content-container">
     <div class="row">
-      <form class="col s12" action="{{ url('/auction-admin/auction/config/'.$result['data_auction']->auction_id.'/edit/save') }}" method="post">
+      <div class="col l12">
+        @if(session()->has('message.success'))
+          <span class="alert-massage success">{{ session()->get('message.success') }}</span>
+        @endif
+      </div>
+      <form class="col s12" action="{{ url('/auction-admin/auction/config/'.$result['data_auction']->auction_id.'/edit/save') }}" enctype="multipart/form-data" method="post">
         {{ csrf_field() }}
+        <input type="hidden" value="{{$result['data_auction']->auction_id}}" name="auction_id">
         <div class="col l8">
           <div class="row">
             <div class="input-field col l6">
@@ -64,7 +70,7 @@
             </div>
             <div class="file-field input-field col l6">
               <div class="btn">
-                <span>File</span>
+                <span>Logo Auction</span>
                 <input type="file" value="{{ $result['data_auction']->auction_logo }}" name="logo">
               </div>
               <div class="file-path-wrapper">
@@ -96,13 +102,25 @@
           <hr>
           <div class="list-images-gallery row">
             @foreach ($result['image_gallery'] as $image)
-              <div class="col l4 gallery-item" image-id="{{$image->images_id }}">
+              <div class="col l6 gallery-item" image-id="{{$image->images_id }}">
+                <span class="deleteGallery" onclick="removeAuctionImage({{$image->images_id}})"><i class='material-icons'>delete</i></span>
                 <input type="hidden" name="images_id[]" value="{{$image->images_id }}">
-                {{-- <input type="hidden" name="images[{{$image->images_id }}][images]" value="{{$image->images}}"> --}}
                 <img src="{{URL::asset('/images/')}}/{{$image->images}}" style="width:100%;">
               </div>
             @endforeach
           </div>
+          <script type="text/javascript">
+            function removeAuctionImage(id) {
+
+              $('.gallery-item').each(function(index, el) {
+                  var imageId = $(this).attr('image-id');
+                  if (imageId == id) {
+                    $(this).remove();
+                  }
+              });
+              hasInserted();
+            }
+          </script>
         </div>
       </form>
     </div>

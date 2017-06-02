@@ -94,7 +94,7 @@ class AuctionController extends Controller
       $image_gallery = DB::table('auction_image as ai')->select('images')->join('images as i', 'ai.images_id','=','i.images_id')->where('auction_id',$auction_id)->get();
 
       $result = array();
-        $result['image_gallery']= $image_gallery;
+      $result['image_gallery']= $image_gallery;
       if (count($dataAuction) > 0) {
         $result['response'] = array(
           'status' => 'success',

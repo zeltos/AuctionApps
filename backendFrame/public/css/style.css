@@ -83,8 +83,14 @@ float: left;
 .gallery-item {
   margin-bottom: 5px;
   padding: 5px !important;
-  height: 92px;
+  height: 145px;
+  position: relative;
   overflow: hidden;
+}
+
+.gallery-item .deleteGallery {
+  position: absolute;
+  top:8px;
 }
 .item-image {
   height: 150px;
@@ -110,4 +116,23 @@ float: left;
 }
 .deleteImg i {
   font-size: 16px;
+}
+
+.alert-massage {
+  width: 100%;
+  float: left;
+  position: relative;
+  padding: 15px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.alert-massage.success {
+  background: #E8F5E9 !important;
+  color: #4CAF50 !important;
+}
+
+.alert-massage.error {
+  background: #FFEBEE !important;
+  color: #F44336 !important;
 }

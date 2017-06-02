@@ -15,7 +15,6 @@ class ImageController extends Controller
         $name = Input::file('file')->getClientOriginalName();
         $type = Input::file('file')->getClientOriginalExtension();
         $size = Input::file('file')->getSize();
-
         $destinationPath = public_path('images');
         // echo $destinationPath.'/'.$name;
         try {
@@ -44,7 +43,15 @@ class ImageController extends Controller
       }
     }
 
-    public function delete() {
-      
+    public function delete($id) {
+      $getImage = DB::table('images')->select('images')->where('images_id', $id)->get();
+      $getImage = json_decode( $getImage, true );
+      $imageDb = $getImage[0]['images'];
+      $deleteInImages = DB::table('auction_image')->where('images_id', $id)->delete();
+      $deleteInAuctionImages = DB::table('images')->where('images_id', $id)->delete();
+
+      $image = public_path('images').'/'.$imageDb;
+      unlink($image);
+      return "success";
     }
 }
