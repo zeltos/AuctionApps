@@ -46,10 +46,22 @@ Route::get('/api/v1/user/activation/{key}','Frontend\Api\UserController@userActi
 Route::get('auction-admin/login', 'Admin\AdminController@showLogin');
 Route::get('auction-admin/home', 'Admin\AdminController@getHome');
 
+// Auction Admin Route
 Route::get('auction-admin/auction/new', 'Admin\AuctionController@newData');
+Route::post('auction-admin/auction/new/save', 'Admin\AuctionController@saveNew');
 Route::get('auction-admin/auction/config', 'Admin\AuctionController@index');
 Route::get('auction-admin/auction/config/{auction_id}/edit', 'Admin\AuctionController@showEdit');
 Route::post('auction-admin/auction/config/{auction_id}/edit/save', 'Admin\AuctionController@saveEdit');
+Route::get('auction-admin/auction/delete/{auction_id}', 'Admin\AuctionController@deleteAuction');
+
+// Member Configuration Route
+Route::get('auction-admin/user/config/index', 'Admin\UserController@index');
+Route::get('auction-admin/user/view/{user_id}', 'Admin\UserController@detailUser');
+Route::post('auction-admin/user/edit/save/{user_id}', 'Admin\UserController@saveEdit');
+Route::get('auction-admin/user/delete/{user_id}', 'Admin\UserController@deleteUser');
+
+// Bid report
+Route::get('auction-admin/bid/report', 'Admin\BidController@index');
 
 Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
 Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');

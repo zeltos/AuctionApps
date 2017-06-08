@@ -1,18 +1,18 @@
 
 <div class="container auction-detail">
   <div class="title-auction">
-    <span class="logo-brand"><img src="{{ getMediaUrl() }}catalog/logo-brand/{{ auctionData.auction_logo }}" alt=""></span>
+    <span class="logo-brand"><img src="backendFrame/public/images/logo/{{ auctionData.auction_logo }}" alt=""></span>
     <h4 class="">{{ auctionData.auction_name }}</h4>
   </div>
   <div class="row">
     <div class="col s12 l5">
       <div class="media-auction cover">
         <div class="media-auction-preview">
-          <img class="lazy" data-original="{{ getMediaUrl() }}catalog/{{ auctionData.images }}"alt="">
+          <img class="lazy" data-original="backendFrame/public/images/{{ auctionData.images }}"alt="">
         </div>
         <div class="media-auction-list cover">
            <div class="owl-carousel" id="image_gallery">
-              <div class="item" ng-repeat="item in image_gallery"><img style="width:100%;" onClick="clickImg(this)" class="media-list-img" src="{{ getMediaUrl() }}catalog/{{ item.images}}" alt=""></div>
+              <div class="item" ng-repeat="item in image_gallery"><img style="width:100%;" onClick="clickImg(this)" class="media-list-img" src="backendFrame/public/images/{{ item.images}}" alt=""></div>
           </div>
         </div>
       </div>

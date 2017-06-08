@@ -15,6 +15,7 @@ class AuctionController extends Controller
     }
     public function index() {
 
+    
      $auctionQ = DB::table('auctions')
                 ->select('*')
                 ->orderBy('created_at', 'desc')
@@ -39,6 +40,57 @@ class AuctionController extends Controller
       $result['image_gallery'] = $imageGallery;
       return View::make('admin/auction/edit')->with('result', $result);
       // return $result;
+    }
+
+    public function generateRandomString($length = 25) {
+      $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $charactersLength = strlen($characters);
+      $randomString = '';
+      for ($i = 0; $i < $length; $i++) {
+          $randomString .= $characters[rand(0, $charactersLength - 1)];
+      }
+      return $randomString;
+  }
+
+    public function saveNew(Request $request) {
+      $randomString     = $this->generateRandomString();
+      $destinationPath  = public_path('images/logo');
+      $image            = $request->file('logo');
+      $imageName        = $image->getClientOriginalName();
+      $now              = new \DateTime();
+      $now->format('m-d-y H:i:s');
+      try {
+        $queryInput       = DB::table('auctions')->insertGetId([
+          'auction_id'            => '',
+          'auction_unique_key'    => $randomString,
+          'status'                => $request->input('status'),
+          'auction_logo'          => $imageName,
+          'auction_name'          => $request->input('auction_name'),
+          'auction_start_bidding' => $request->input('start_bid'),
+          'auction_short_description' => $request->input('short_desc'),
+          'auction_term_condition' => $request->input('term_cond'),
+          'auction_description'   => $request->input('description'),
+          'auction_max_bid'       => $request->input('max_bid'),
+          'auction_start_date'    => $request->input('start_date'),
+          'auction_end_date'      => $request->input('end_date'),
+          'auction_end_date'      => $request->input('end_date'),
+          'created_at'            =>$now,
+          'updated_at'            =>$now
+        ]);
+
+        $queryInputBid = DB::table('auction_bid')->insert([
+          'bid_id'                => '',
+          'auction_id'            => $queryInput,
+          'user_id'               => 0,
+          'bid_value'             => $request->input('start_bid'),
+          'created_at'            => $now
+        ]);
+        $request->file('logo')->move($destinationPath , $imageName);
+        return redirect('auction-admin/auction/config')->with('message.success', 'Successfully add new Auction Data!');
+      } catch (Exception $e) {
+        return $e->getMessage();
+      }
+
     }
 
     public function saveEdit(Request $request) {
@@ -125,6 +177,16 @@ class AuctionController extends Controller
         return redirect()->back()->with('message.success', 'Successfully update Auction Data!');
       } catch (Exception $e) {
         return $e->getMessage();
+      }
+
+    }
+
+    public function deleteAuction($auction_id) {
+      try {
+        DB::table('auctions')->where('auction_id', $auction_id )->delete();
+        return redirect()->back()->with('message.success', 'Successfully delete Auction Data!');
+      } catch (Exception $e) {
+
       }
 
     }

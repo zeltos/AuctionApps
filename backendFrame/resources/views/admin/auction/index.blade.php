@@ -13,6 +13,11 @@
   <div class="content-container">
     <div class="row">
       <div class="col l12">
+        @if(session()->has('message.success'))
+          <span class="alert-massage success">{{ session()->get('message.success') }}</span>
+        @endif
+      </div>
+      <div class="col l12">
         <a href="{{ url('/auction-admin/auction/new')}}" class="waves-effect waves-light btn-large blue darken-1 text-white"><i class="material-icons right">gavel</i>Add New Auction</a>
         <span class="sptr"></span>
         <div class="cover">
@@ -41,7 +46,7 @@
                 <td>IDR {{ number_format( $auction->auction_start_bidding , 0 , '' , '.' ) }}</td>
                 <td>
                   <a href="{{ url('/auction-admin/auction/config/'.$auction->auction_id.'/edit') }}"><i class="material-icons">border_color</i></a>
-                  <a href="#" style="color:red;margin-left:10px;"><i class="material-icons">delete_forever</i></a>
+                  <a href="{{ url('/auction-admin/auction/delete/'.$auction->auction_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
                 </td>
               </tr>
               @endforeach

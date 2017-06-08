@@ -1,8 +1,8 @@
-@if(!Auth::check() )
+{{-- @if(!Auth::check() )
   <script type="text/javascript">
     window.location = "{ url('/auction-admin/login') }";//here double curly bracket
 </script>
-@endif
+@endif --}}
 <html>
     <head>
         <title>@yield('title') - BO Auction</title>
@@ -32,7 +32,8 @@
                 <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
               </div></li>
               <li><a href="{{ url('/auction-admin/auction/config') }}"><i class="material-icons">gavel</i>Auction Configuration</a></li>
-              <li><a href="#!"><i class="material-icons">supervisor_account</i>User Manager</a></li>
+              <li><a href="{{ url('/auction-admin/user/config/index') }}"><i class="material-icons">supervisor_account</i>User Manager</a></li>
+              <li><a href="{{ url('/auction-admin/bid/report') }}"><i class="material-icons">content_paste</i>Bid Reports</a></li>
               <li><div class="divider"></div></li>
               <li><a class="subheader">Subheader</a></li>
               <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>

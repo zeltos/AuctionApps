@@ -32,7 +32,7 @@ class AdminController extends Controller
       } else {
         $userdata = array(
             'email'     => Input::get('email'),
-            'password'  =>Input::get('password')
+            'password'  => Input::get('password')
         );
         print_r($userdata);
         // attempt to do the login
@@ -62,4 +62,11 @@ class AdminController extends Controller
     // echo $userId = Auth::id();
     return view('admin/dashboard');
   }
+
+  public function checkAuth() {
+    if (!Auth::check()) {
+        return \Redirect::to('auction-admin/login');
+    }
+  }
+
 }
