@@ -81,7 +81,7 @@ class BidController extends Controller
 
       $result = array();
       $result['response'] = array(
-        'status' => $status,
+        'status' =>  $status,
         'message' => $message
       );
 

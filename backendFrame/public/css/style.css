@@ -16,7 +16,13 @@
   width: 40%;
   margin: 0 auto;
 }
-
+.dropdown-content li>a>i {
+    height: inherit;
+    line-height: inherit;
+    float: left;
+    margin: 0 24px 0 0;
+    width: 24px;
+}
 .text-black {
   color: #2d2d2d !important;
 }

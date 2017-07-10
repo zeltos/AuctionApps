@@ -6,11 +6,42 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use View;
 
 class AdminController extends Controller
 {
     //
+
+    public function index() {
+      $adminData = DB::table('admins')
+                  ->join('admin_role', 'admins.role_id','=','admin_role.role_id')
+                  ->select('admins.*','admin_role.*')
+                  ->get();
+      // return $adminData;
+      return view('admin/config/index',['adminData' => $adminData]);
+    }
+
+    public function saveNew(Request $request) {
+      $password = Hash::make($request->input('password'));
+      $now = new \DateTime();
+      try {
+        DB::table('admins')->insert([
+          'admin_id'        => '',
+          'name'            => $request->input('name'),
+          'email'            => $request->input('email'),
+          'role_id'          => $request->input('role'),
+          'password'            => $password,
+          'created_at'        => $now,
+          'updated_at'        => $now
+        ]);
+        return redirect()->back()->with('message.success', 'Successfully Add New Admin!');
+      } catch (Exception $e) {
+
+      }
+
+    }
 
     public function showLogin() {
         if (Auth::check()) {
@@ -46,7 +77,7 @@ class AdminController extends Controller
 
         } else {
             // validation not successful, send back to form
-            return \Redirect::to('auction-admin/login');
+            return \Redirect::to('auction-admin/login')->with('message.error', 'ERROR: Invalid email or password!');
 
         }
       }

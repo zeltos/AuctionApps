@@ -62,6 +62,13 @@ Route::get('auction-admin/user/delete/{user_id}', 'Admin\UserController@deleteUs
 
 // Bid report
 Route::get('auction-admin/bid/report', 'Admin\BidController@index');
+Route::get('auction-admin/bid/export/{auction_id}', 'Admin\BidController@exportExcel');
+Route::get('auction-admin/bid/export-all/', 'Admin\BidController@exportAll');
+Route::get('auction-admin/bid/report/detail/{auction_id}/{curPage?}', 'Admin\BidController@getDetail');
+
+// Admin Manager
+Route::get('auction-admin/admin/config/index', 'Admin\AdminController@index');
+Route::post('auction-admin/admin/add/save', 'Admin\AdminController@saveNew');
 
 Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
 Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');

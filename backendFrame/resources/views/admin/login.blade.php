@@ -13,12 +13,17 @@
       <form action="" method="POST">
         {{ csrf_field() }}
         <div class="row">
+          @if(session()->has('message.success'))
+            <span class="alert-massage success">{{ session()->get('message.success') }}</span>
+          @elseif(session()->has('message.error'))
+            <span class="alert-massage error">{{ session()->get('message.error') }}</span>            
+          @endif
           <div class="input-field col l12">
-              <input id="email" type="text" name="email" class="validate">
+              <input id="email" type="email" name="email" class="validate" required>
               <label for="email">Email Address</label>
           </div>
           <div class="input-field col l12">
-              <input id="password" type="password" name="password" class="validate">
+              <input id="password" type="password" name="password" class="validate" required>
               <label for="password">Password</label>
           </div>
           <div class="col l12">
