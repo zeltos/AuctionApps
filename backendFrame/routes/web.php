@@ -73,7 +73,7 @@ Route::post('auction-admin/admin/add/save', 'Admin\AdminController@saveNew');
 Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
 Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');
 
-Route::post('/image/post/', 'Admin\imageController@post');
+Route::post('/image/post/', 'Admin\ImageController@post');
 Route::get('/image/delete/{id}', 'Admin\ImageController@delete');
 Route::get('/image/get/{image?}', 'Admin\ImageController@get');
 
