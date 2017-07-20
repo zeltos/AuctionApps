@@ -1,4 +1,4 @@
-AuctionApp.controller('listAuctionController', ['$scope', '$http', '$routeParams', '$location' , function($scope, $http, $routeParams, $location){
+AuctionApp.controller('listAuctionController', ['$scope','$rootScope', '$http', '$routeParams', '$location' , function($scope, $rootScope, $http, $routeParams, $location){
   $scope.sortBy = "all";
   $scope.curPage= '1';
   $scope.currentPath = $location.path();
