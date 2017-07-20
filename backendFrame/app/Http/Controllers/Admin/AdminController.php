@@ -23,6 +23,64 @@ class AdminController extends Controller
       return view('admin/config/index',['adminData' => $adminData]);
     }
 
+
+    public function showEdit($admin_id) {
+      $adminData = DB::table('admins')
+                  ->join('admin_role', 'admins.role_id','=','admin_role.role_id')
+                  ->select('admins.*','admin_role.*')
+                  ->where('admin_id', $admin_id)
+                  ->get();
+      // return $adminData;
+      return view('admin/config/edit', compact('adminData'));
+    }
+
+    public function saveEdit(Request $request, $admin_id)
+    {
+      $name = $request->input('name');
+      $role_id = $request->input('role_id');
+      $email = $request->input('email');
+      $password =Hash::make($request->input('password'));
+      try {
+        if (!$password) {
+          DB::table('admins')
+          ->where('admin_id', $admin_id)
+          ->update(
+            [
+              'name' => $name,
+              'role_id' => $role_id,
+              'email' => $email
+            ]
+          );
+        } else {
+          DB::table('admins')
+          ->where('admin_id', $admin_id)
+          ->update(
+            [
+              'name' => $name,
+              'role_id' => $role_id,
+              'email' => $email,
+              'password' => $password
+            ]
+          );
+        }
+        return redirect()->back()->with('message.success', 'Successfully Update Admin!');
+      } catch (Exception $e) {
+
+      }
+
+    }
+
+    public function deleteAdmin($admin_id)
+    {
+      try {
+        DB::table('admins')->where('admin_id', $admin_id)->delete();
+        return redirect()->back()->with('message.success', 'Successfully Update Admin!');
+      } catch (Exception $e) {
+
+      }
+
+    }
+
     public function saveNew(Request $request) {
       $password = Hash::make($request->input('password'));
       $now = new \DateTime();

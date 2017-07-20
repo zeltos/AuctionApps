@@ -89,9 +89,9 @@
             <td>{{$admin->email}}</td>
             <td>{{$admin->role_name}}</td>
             <td>
-                <a href="{{ secure_url('/auction-admin/auction/config/'.$admin->admin_id.'/edit') }}"><i class="material-icons">border_color</i></a>
+                <a href="{{ secure_url('/auction-admin/admin/config/'.$admin->admin_id.'/edit') }}"><i class="material-icons">border_color</i></a>
               @if ($admin->admin_id !== Auth::user()->admin_id || $admin->role_id !== 1)
-                <a href="{{ secure_url('/auction-admin/auction/delete/'.$admin->admin_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
+                <a href="{{ secure_url('/auction-admin/admin/delete/'.$admin->admin_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
               @endif
             </td>
           </tr>

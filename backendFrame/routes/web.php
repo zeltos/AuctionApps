@@ -69,6 +69,9 @@ Route::get('auction-admin/bid/report/detail/{auction_id}/{curPage?}', 'Admin\Bid
 // Admin Manager
 Route::get('auction-admin/admin/config/index', 'Admin\AdminController@index');
 Route::post('auction-admin/admin/add/save', 'Admin\AdminController@saveNew');
+Route::get('auction-admin/admin/config/{admin_id}/edit', 'Admin\AdminController@showEdit');
+Route::get('auction-admin/admin/delete/{admin_id}', 'Admin\AdminController@deleteAdmin');
+Route::post('auction-admin/admin/config/{admin_id}/edit/save', 'Admin\AdminController@saveEdit');
 
 Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
 Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');
