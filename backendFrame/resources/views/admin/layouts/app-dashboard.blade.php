@@ -1,6 +1,6 @@
 @if(!Auth::check())
   <script type="text/javascript">
-    window.location = "{{ url('/auction-admin/login') }}";//here double curly bracket
+    window.location = "{{ secure_url('/auction-admin/login') }}";//here double curly bracket
 </script>
 @else
 <html>
@@ -31,13 +31,13 @@
                 <a href="#!name"><span class="white-text name">John Doe</span></a>
                 <a href="#!email"><span class="white-text email">jdandturk@gmail.com</span></a>
               </div></li>
-              <li><a href="{{ url('/auction-admin/home') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
-              <li><a href="{{ url('/auction-admin/auction/config') }}"><i class="material-icons">gavel</i>Auction Configuration</a></li>
-              <li><a href="{{ url('/auction-admin/user/config/index') }}"><i class="material-icons">supervisor_account</i>User Manager</a></li>
+              <li><a href="{{ secure_url('/auction-admin/home') }}"><i class="material-icons">dashboard</i>Dashboard</a></li>
+              <li><a href="{{ secure_url('/auction-admin/auction/config') }}"><i class="material-icons">gavel</i>Auction Configuration</a></li>
+              <li><a href="{{ secure_url('/auction-admin/user/config/index') }}"><i class="material-icons">supervisor_account</i>User Manager</a></li>
               @if (Auth::user()->role_id == 1)
-              <li><a href="{{ url('/auction-admin/admin/config/index') }}"><i class="material-icons">accessibility</i>Admin Manager <span class=" red darken-1 badge text-white">SA only</span></a></li>
+              <li><a href="{{ secure_url('/auction-admin/admin/config/index') }}"><i class="material-icons">accessibility</i>Admin Manager <span class=" red darken-1 badge text-white">SA only</span></a></li>
               @endif
-              <li><a href="{{ url('/auction-admin/bid/report') }}"><i class="material-icons">content_paste</i>Bid Reports</a></li>
+              <li><a href="{{ secure_url('/auction-admin/bid/report') }}"><i class="material-icons">content_paste</i>Bid Reports</a></li>
               <li><div class="divider"></div></li>
               <li><a class="subheader">Subheader</a></li>
               <li><a class="waves-effect" href="#!">Third Link With Waves</a></li>
@@ -50,7 +50,7 @@
                     <a href="#" class="brand-logo text-black">@yield('title-page')</a>
                     <ul id="nav-mobile" class="right hide-on-med-and-down">
                       <li style="position:relative;"><a href="#" data-activates='dropdown-profile' class="dropdown-button text-black grey lighten-4"><i class="material-icons left">face</i> {{Auth::user()->email}}</a></li>
-                      <li><a href="{{ url('/auction-admin/logout') }}" class="text-white grey darken-4"> <i class="material-icons right">lock</i> logout</a></li>
+                      <li><a href="{{ secure_url('/auction-admin/logout') }}" class="text-white grey darken-4"> <i class="material-icons right">lock</i> logout</a></li>
                     </ul>
                     <ul id='dropdown-profile' class='dropdown-content' style="width:100%;top:100% !important;">
                       <li><a href="#!"><i class="material-icons" style="display:inline-block">vpn_key</i>Change Password</a></li>

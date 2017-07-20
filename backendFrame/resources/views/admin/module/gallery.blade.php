@@ -16,7 +16,7 @@
     </div>
 
     <div id="content-upload" style="display:none;">
-      <form action="{{ url('/image/post/') }}" class="dropzone" id="my-dropzone">{{ csrf_field() }}</form>
+      <form action="{{ secure_url('/image/post/') }}" class="dropzone" id="my-dropzone">{{ csrf_field() }}</form>
       <div class="grid-cover" style="margin-bottom:30px;">
         <a class="waves-effect waves-light btn" id="submitFile" style="display:none;"><i class="material-icons left">cloud</i>Upload File</a>
       </div>
@@ -67,7 +67,7 @@ jQuery(document).ready(function($){
   })
 
   function getImageWasAdd(file) {
-    var url = '<?php echo url('/image/get/'); ?>';
+    var url = '<?php echo secure_url('/image/get/'); ?>';
     var urlImages ='<?php echo URL::asset('/images/'); ?>';
     $.get(url+'/'+file, function( data ) {
       console.log(data);
@@ -83,7 +83,7 @@ jQuery(document).ready(function($){
       return;
     }
 
-    var url = '<?php echo url('/image/delete'); ?>';
+    var url = '<?php echo secure_url('/image/delete'); ?>';
     $.get(url + '/' + id, function(data){
       console.log(data);
       if (data=="success") {
@@ -93,7 +93,7 @@ jQuery(document).ready(function($){
   }
 
   function getListImage() {
-    var url = '<?php echo url('/image/get'); ?>';
+    var url = '<?php echo secure_url('/image/get'); ?>';
     var urlImages ='<?php echo URL::asset('/images/'); ?>';
     $.get(url, function( data ) {
       console.log(data);

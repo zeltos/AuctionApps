@@ -62,7 +62,7 @@ function($scope, $rootScope, $http, $location, $route){
     if ($route.current.module == 'account') {
         $location.path('/');
     }
-    
+
     console.log('u has logout from apps');
   }
 
@@ -75,6 +75,8 @@ function($scope, $rootScope, $http, $location, $route){
     $scope.loading_register = true;
     if (isValid) {
       $http.post(urlServer +'userRegister', $scope.registerData).then(function(response){
+        $scope.errorRegister = false;
+        $scope.successRegister = false;
         $scope.loading_register = false;
         var result = response.data;
         if (result.response.status == 'success') {

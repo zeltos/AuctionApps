@@ -74,8 +74,8 @@ Route::get('auction-admin/logout', 'Admin\AdminController@doLogout');
 Route::post('auction-admin/login', 'Admin\AdminController@submitLogin');
 
 Route::post('/image/post/', 'Admin\imageController@post');
-Route::get('/image/delete/{id}', 'Admin\imageController@delete');
-Route::get('/image/get/{image?}', 'Admin\imageController@get');
+Route::get('/image/delete/{id}', 'Admin\ImageController@delete');
+Route::get('/image/get/{image?}', 'Admin\ImageController@get');
 
 
 Route::get('/welcome', function () {

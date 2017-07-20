@@ -13,7 +13,7 @@
 @section('content')
   <div class="content-container">
     <div class="row">
-      <form class="col s12" action="{{ url('/auction-admin/auction/new/save') }}" enctype="multipart/form-data" method="post">
+      <form class="col s12" action="{{ secure_url('/auction-admin/auction/new/save') }}" enctype="multipart/form-data" method="post">
         {{ csrf_field() }}
         <input type="hidden" name="auction_id">
         <div class="col l8">

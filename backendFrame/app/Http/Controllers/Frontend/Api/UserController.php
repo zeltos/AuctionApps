@@ -110,7 +110,7 @@ class UserController extends Controller
       $checkUsersQ = DB::table('users')->select('user_id','user_status')->where('activation_key', $key)->get();
       if (count($checkUsersQ) > 0) {
         $updateStatusQ = DB::table('users')->where('activation_key', $key)->update(['user_status' => '1']);
-        return 'success';
+        echo "<script>alert('Your Account Has been Successfully Activated!'); window.location.href='https://apps.mezeltos.com';</script>";
       }
     }
 

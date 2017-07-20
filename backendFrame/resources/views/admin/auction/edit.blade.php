@@ -17,7 +17,7 @@
           <span class="alert-massage success">{{ session()->get('message.success') }}</span>
         @endif
       </div>
-      <form class="col s12" action="{{ url('/auction-admin/auction/config/'.$result['data_auction']->auction_id.'/edit/save') }}" enctype="multipart/form-data" method="post">
+      <form class="col s12" action="{{ secure_url('/auction-admin/auction/config/'.$result['data_auction']->auction_id.'/edit/save') }}" enctype="multipart/form-data" method="post">
         {{ csrf_field() }}
         <input type="hidden" value="{{$result['data_auction']->auction_id}}" name="auction_id">
         <div class="col l8">

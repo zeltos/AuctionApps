@@ -74,12 +74,12 @@ class UserController extends Controller
     }
 
     public function deleteUser($user_id) {
-      return $user_id;
+      // return $user_id;
       try {
-        DB::table('user')->where('user_id', $user_id)->delete();
+        DB::table('users')->where('user_id', $user_id)->delete();
         return redirect()->back()->with('message.success', 'Successfully Delete Users Data!');
       } catch (Exception $e) {
-
+          return redirect()->back()->with('message.error', 'Failed Delete Users Data!');
       }
 
     }

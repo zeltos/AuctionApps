@@ -60,7 +60,7 @@
             </tr> --}}
           </table>
           <br>
-          <form action="{{ url('/auction-admin/user/edit/save/'.$result[0]['user_id']) }}" method="post">
+          <form action="{{ secure_url('/auction-admin/user/edit/save/'.$result[0]['user_id']) }}" method="post">
             {{ csrf_field() }}
             <div id="modalEdit" class="modal">
               <div class="modal-content">

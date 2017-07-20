@@ -21,7 +21,7 @@
           @if (Auth::user()->role_id == 1)
             <a href="#add-admin" class="waves-effect waves-light btn-large blue darken-1 text-white"><i class="material-icons right">accessibility</i>Add New Admin</a>
           @endif
-          <form action="{{ url('auction-admin/admin/add/save') }}" method="POST">
+          <form action="{{ secure_url('auction-admin/admin/add/save') }}" method="POST">
             {{ csrf_field() }}
             <div id="add-admin" class="modal">
                <div class="modal-content">
@@ -89,9 +89,9 @@
             <td>{{$admin->email}}</td>
             <td>{{$admin->role_name}}</td>
             <td>
-                <a href="{{ url('/auction-admin/auction/config/'.$admin->admin_id.'/edit') }}"><i class="material-icons">border_color</i></a>
+                <a href="{{ secure_url('/auction-admin/auction/config/'.$admin->admin_id.'/edit') }}"><i class="material-icons">border_color</i></a>
               @if ($admin->admin_id !== Auth::user()->admin_id || $admin->role_id !== 1)
-                <a href="{{ url('/auction-admin/auction/delete/'.$admin->admin_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
+                <a href="{{ secure_url('/auction-admin/auction/delete/'.$admin->admin_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
               @endif
             </td>
           </tr>

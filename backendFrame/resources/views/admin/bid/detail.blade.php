@@ -14,7 +14,7 @@
     @if (count($dataReport) !== 0)
     <div class="row">
       <div class="col l12">
-        <h3>{{$dataReport[0]->auction_name}} <a href="{{ url('/auction-admin/bid/export/'.$dataReport[0]->auction_id)}}" class="right waves-effect waves-light btn-large blue darken-1 text-white" style="font-size:16px;"><i class="material-icons right">content_paste</i>Export to Excel</a></h3>
+        <h3>{{$dataReport[0]->auction_name}} <a href="{{ secure_url('/auction-admin/bid/export/'.$dataReport[0]->auction_id)}}" class="right waves-effect waves-light btn-large blue darken-1 text-white" style="font-size:16px;"><i class="material-icons right">content_paste</i>Export to Excel</a></h3>
       </div>
       <div class="col l12">
         <table class="striped">

@@ -10,5 +10,8 @@
 @parent
 @endsection
 @section('content')
-
+<div class="content-container">
+<h4>Welcome to Dasboard</h4>
+<p>didalam halaman ini kita bisa mengolah data-data yang berhubungan dengan aplikasi ini. selamat berkarya!</p>
+</div>
 @endsection

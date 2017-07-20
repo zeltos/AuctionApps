@@ -49,8 +49,8 @@
                 </td>
                 <td>{{ $user->bidCount }}</td>
                 <td>
-                  <a href="{{ url('/auction-admin/user/view/'.$user->user_id) }}"><i class="material-icons">border_color</i></a>
-                  <a href="{{ url('/auction-admin/user/delete/'.$user->user_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
+                  <a href="{{ secure_url('/auction-admin/user/view/'.$user->user_id) }}"><i class="material-icons">border_color</i></a>
+                  <a href="{{ secure_url('/auction-admin/user/delete/'.$user->user_id)}}" style="color:red;margin-left:10px;" onclick="return confirm('Are you sure to delete this auction data?');"><i class="material-icons">delete_forever</i></a>
                 </td>
               </tr>
               @endforeach

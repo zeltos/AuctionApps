@@ -78,7 +78,7 @@ class AuctionController extends Controller
       if ($auctionArray['status'] == 'live') {
         $end_date = new \DateTime($auctionArray['auction_end_date']);
         $difference = $end_date->diff($now);
-        if ($difference->invert == 0 && $difference->d > 0) {
+        if ($difference->invert == 0 && $difference->d >= 0) {
           $datas[0]['status'] = 'closed';
           DB::table('auctions')->where('auction_id',$auction_id)->update(['status' => 'closed']);
         }
