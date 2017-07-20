@@ -46,8 +46,8 @@ AuctionApp.config(function($routeProvider, $locationProvider) {
 
 AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope, $rootScope){
   // Get Base Url
-  var envi = 'local';
-  // var envi = 'production';
+  // var envi = 'local';
+  var envi = 'production';
 
   $rootScope.getBaseUrl = function() {
     var getUrl = window.location;
@@ -58,9 +58,9 @@ AuctionApp.controller('appController', ['$scope', '$rootScope' , function($scope
     return $scope.getBaseUrl() + '/media/';
   }
 
-  if (envi = 'local') {
+  if (envi == 'local') {
     $rootScope.baseUrlApi = $rootScope.getBaseUrl()+'backendFrame/public/api/v1/';
-  } else if (envi = 'production') {
+  } else if (envi == 'production') {
     $rootScope.baseUrlApi = 'https://api.mezeltos.com/api/v1/';
   }
   console.log($rootScope.baseUrlApi);
