@@ -17,6 +17,7 @@
           <script type="text/javascript" src="{{URL::asset('/js/jquery.min.js')}}"></script>
           <script type="text/javascript" src="{{URL::asset('/js/materialize.min.js')}}"></script>
           <script type="text/javascript" src="{{URL::asset('/js/dropzone.js')}}"></script>
+          <script type="text/javascript" src="{{URL::asset('/js/chart.js')}}"></script>
         @show
     </head>
     <body>
@@ -24,8 +25,8 @@
           <div class="side-wrap">
             <ul id="slide-out" class="side-nav" style="transform: translateX(0px);">
               <li><div class="userView">
-                <div class="background">
-                  <img src="http://materializecss.com/images/office.jpg">
+                <div class="background" style="background-color:#19B5FE;">
+                  {{-- <img src="http://materializecss.com/images/office.jpg"> --}}
                 </div>
                 <a href="#!user"><img class="circle" src="http://materializecss.com/images/yuna.jpg"></a>
                 <a href="#!name"><span class="white-text name">John Doe</span></a>
