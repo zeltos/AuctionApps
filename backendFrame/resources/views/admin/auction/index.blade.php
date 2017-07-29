@@ -39,7 +39,15 @@
               <tr>
                 <td>#</td>
                 <td><a href="#">{{ $auction->auction_name }}</a></td>
-                <td>{{ $auction->status }}</td>
+                <td>
+                  @if ($auction->status == 'closed')
+                    <span style="color:red;">{{ $auction->status }}</span>
+                  @elseif ($auction->status == 'live')
+                    <span style="color:green;">{{ $auction->status }}</span>
+                  @else
+                    <span>{{$auction->status}}</span>        
+                  @endif
+                </td>
                 <td>{{ $auction->auction_start_date }}</td>
                 <td>{{ $auction->auction_end_date }}</td>
                 <td>IDR {{ number_format( $auction->auction_max_bid , 0 , '' , '.' ) }}</td>
